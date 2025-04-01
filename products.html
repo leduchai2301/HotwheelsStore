@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sản phẩm - Hot Wheels Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #f28f16;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img {
+            width: 150px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .filter-bar {
+            text-align: center;
+            padding: 20px;
+            background: white;
+        }
+        .product-list {
+            text-align: center;
+            padding: 20px;
+        }
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .product-item {
+            background: #febf38;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            text-align: center;
+        }
+        .product-item img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-item img:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            background: #f28f16;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="products.html">Sản phẩm</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+                <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="filter-bar">
+        <input type="text" id="search" placeholder="Tìm kiếm sản phẩm..." onkeyup="filterProducts()">
+    </section>
+
+    <section class="product-list">
+        <h2>Tất cả sản phẩm</h2>
+        <div class="product-grid" id="product-container"></div>
+        <div class="pagination" id="pagination"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Hot Wheels Store. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const products = Array.from({ length: 40 }, (_, i) => ({
+            id: i + 1,
+            name: `Hot Wheels Car ${i + 1}`,
+            price: 150000 + (i % 5) * 10000,
+            img: `https://cdn.shopify.com/s/files/1/0731/6514/4343/files/sieu-xe-kro-promo-car-${(i % 10) + 1}.jpg?v=1741257486&width=500`
+        }));
+        
+        let currentPage = 1;
+        const productsPerPage = 20;
+
+        function displayProducts() {
+            const searchQuery = document.getElementById("search").value.toLowerCase();
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchQuery));
+            
+            const start = (currentPage - 1) * productsPerPage;
+            const end = start + productsPerPage;
+            const paginatedProducts = filteredProducts.slice(start, end);
+
+            const container = document.getElementById("product-container");
+            container.innerHTML = paginatedProducts.map(product => `
+                <div class="product-item">
+                    <img src="${product.img}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.price.toLocaleString()} VND</p>
+                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Thêm vào giỏ hàng</button>
+                </div>
+            `).join("");
+
+            displayPagination(filteredProducts.length);
+        }
+
+        function displayPagination(totalProducts) {
+            const totalPages = Math.ceil(totalProducts / productsPerPage);
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+            }
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            displayProducts();
+        }
+
+        function addToCart(id, name, price) {
+            alert(`Đã thêm ${name} vào giỏ hàng!`);
+        }
+
+        displayProducts();
+    </script>
+</body>
+</html>
