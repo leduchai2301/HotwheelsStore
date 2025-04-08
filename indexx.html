@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Wheels Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #f78902;
+            color: white;
+            padding: 1px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo img {
+            width: 200px;
+            height: 100px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            overflow: hidden;
+            background: url('https://preview.redd.it/this-expansion-is-hype-asf-v0-9sb5625nel7c1.png?width=3840&format=png&auto=webp&s=d7e6af79b6d0fac8684f4c03a2727d976e07f67e') no-repeat center center/cover;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 30px;
+            background: #eb8f0e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: #f4f4f4;
+            cursor: pointer;
+        }
+
+        .product-list {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgb(255, 255, 255);
+        }
+        .product {
+            display: inline-block;
+            margin: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 70px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .product img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        /* Thanh điều hướng */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1px; /* Thu hẹp khoảng cách giữa các liên kết */
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ffffff; /* Màu chữ tối */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 20px 30px; /* Giảm padding để thu hẹp kích thước */
+    background-color: #f56d0531; /* Màu nền ban đầu nhẹ */
+    
+    border-radius: 4px; /* Bo tròn góc */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển động */
+    display: inline-block;
+}
+
+/* Hiệu ứng khi rê chuột */
+nav ul li a:hover {
+    background-color: #c15013; /* Màu nền khi hover */
+    color: rgb(228, 203, 203); /* Màu chữ khi hover */
+    border-color: #ff6f00; /* Màu viền khi hover */
+    box-shadow: 0 4px 10px rgba(51, 50, 50, 0.1); /* Đổ bóng nhẹ khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+/* Thêm hiệu ứng cho các liên kết đã được chọn (active) */
+nav ul li a.active {
+    background-color: #ff6f00; /* Màu nền cho liên kết đang được chọn */
+    color: white; /* Màu chữ cho liên kết đang được chọn */
+    border-color: #ff6f00; /* Màu viền cho liên kết đang được chọn */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng khi được chọn */
+}
+
+
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="products.html">Sản phẩm</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+                <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Siêu xe Hot Wheels – Đam mê không giới hạn!</h1>
+        <p>Mua sắm những mẫu xe Hot Wheels mới nhất với giá hấp dẫn.</p>
+        <a href="products.html" class="btn">Xem ngay</a>
+    </section>
+    
+    <section class="product-list">
+        <h2>Sản phẩm nổi bật</h2>
+        <div class="product">
+            <img src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Hot Wheels Camaro">
+            <h3>Hot Wheels Camaro</h3>
+            <p>Giá: 250,000 VND</p>
+            <button class="btn" onclick="addToCart(1, 'Hot Wheels Camaro', 250000)">Mua ngay</button>
+        </div>
+        <div class="product">
+            <img src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Hot Wheels Mustang">
+            <h3>Hot Wheels Mustang</h3>
+            <p>Giá: 280,000 VND</p>
+            <button class="btn" onclick="addToCart(2, 'Hot Wheels Mustang', 280000)">Mua ngay</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/71G0KhcilRL._AC_SL1000_.jpg" alt="Hot Wheels Ferrari">
+            <h3>Hot Wheels Ferrari</h3>
+            <p>Giá: 320,000 VND</p>
+            <button class="btn" onclick="addToCart(3, 'Hot Wheels Ferrari', 320000)">Mua ngay</button>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Hot Wheels Store. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        function addToCart(id, name, price) {
+            let product = cart.find(item => item.id === id);
+            if (product) {
+                product.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            alert(`Đã thêm ${name} vào giỏ hàng!`);
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+
+        
+        const images = [
+            'https://images.squarespace-cdn.com/content/v1/54dabf38e4b06c67da923d72/1608051787886-QH3A99XUF4WXGNEE5SP5/hw5.jpg?format=1500w',
+            'https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/9b983ed2-b393-4e90-a6ce-c0818a41f16d/HotWheelsUnleashedLooneyTunes.jpg?format=1000w',
+            'https://www.nbc.com/sites/nbcblog/files/2023/06/Hot-Wheels-102-Promo.jpg',
+            'https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_HotWheelsUnleashed2Turbocharged_image1600w.jpg'
+        ];
+
+        let index = 0;
+        function changeHeroBackground() {
+            document.querySelector('.hero').style.backgroundImage = `url(${images[index]})`;
+            index = (index + 1) % images.length;
+        }
+
+        setInterval(changeHeroBackground, 2000); // Đổi ảnh sau mỗi 4 giây
+    </script>
+</body>
+</html>
