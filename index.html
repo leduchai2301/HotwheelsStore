@@ -13,7 +13,7 @@
             background-color: #f4f4f4;
         }
         header {
-            background: #f28f16;
+            background: #f78902;
             color: white;
             padding: 1px 15px;
             display: flex;
@@ -41,7 +41,7 @@
         /* HERO SECTION */
         .hero {
             width: 100%;
-            height: 400px;
+            height: 600px;
             position: relative;
             text-align: center;
             color: white;
@@ -51,13 +51,13 @@
             align-items: center;
             font-size: 20px;
             overflow: hidden;
-            background: url('https://wallpaperaccess.com/full/2939813.jpg') no-repeat center center/cover;
+            background: url('https://preview.redd.it/this-expansion-is-hype-asf-v0-9sb5625nel7c1.png?width=3840&format=png&auto=webp&s=d7e6af79b6d0fac8684f4c03a2727d976e07f67e') no-repeat center center/cover;
             transition: background-image 1s ease-in-out;
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 10px 30px;
             background: #eb8f0e;
             color: white;
             text-decoration: none;
@@ -70,14 +70,14 @@
         .product-list {
             text-align: center;
             padding: 50px 20px;
-            background: white;
+            background: rgb(255, 255, 255);
         }
         .product {
             display: inline-block;
             margin: 20px;
             padding: 15px;
             background: #fff;
-            border-radius: 10px;
+            border-radius: 70px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             width: 200px;
             text-align: center;
@@ -104,6 +104,49 @@
             padding: 20px;
             margin-top: 30px;
         }
+        /* Thanh điều hướng */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1px; /* Thu hẹp khoảng cách giữa các liên kết */
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ffffff; /* Màu chữ tối */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 20px 30px; /* Giảm padding để thu hẹp kích thước */
+    background-color: #f56d0531; /* Màu nền ban đầu nhẹ */
+    
+    border-radius: 4px; /* Bo tròn góc */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển động */
+    display: inline-block;
+}
+
+/* Hiệu ứng khi rê chuột */
+nav ul li a:hover {
+    background-color: #c15013; /* Màu nền khi hover */
+    color: rgb(228, 203, 203); /* Màu chữ khi hover */
+    border-color: #ff6f00; /* Màu viền khi hover */
+    box-shadow: 0 4px 10px rgba(51, 50, 50, 0.1); /* Đổ bóng nhẹ khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+/* Thêm hiệu ứng cho các liên kết đã được chọn (active) */
+nav ul li a.active {
+    background-color: #ff6f00; /* Màu nền cho liên kết đang được chọn */
+    color: white; /* Màu chữ cho liên kết đang được chọn */
+    border-color: #ff6f00; /* Màu viền cho liên kết đang được chọn */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng khi được chọn */
+}
+
+
+        
     </style>
 </head>
 <body>
@@ -175,9 +218,10 @@
 
         
         const images = [
-            'https://wallpaperaccess.com/full/2939813.jpg',
-            'https://wallpaper-house.com/data/out/8/wallpaper2you_210492.jpg',
-            'https://i.ytimg.com/vi/KNeum-EZoIk/maxresdefault.jpg'
+            'https://images.squarespace-cdn.com/content/v1/54dabf38e4b06c67da923d72/1608051787886-QH3A99XUF4WXGNEE5SP5/hw5.jpg?format=1500w',
+            'https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/9b983ed2-b393-4e90-a6ce-c0818a41f16d/HotWheelsUnleashedLooneyTunes.jpg?format=1000w',
+            'https://www.nbc.com/sites/nbcblog/files/2023/06/Hot-Wheels-102-Promo.jpg',
+            'https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/2x1_NSwitch_HotWheelsUnleashed2Turbocharged_image1600w.jpg'
         ];
 
         let index = 0;
@@ -186,7 +230,7 @@
             index = (index + 1) % images.length;
         }
 
-        setInterval(changeHeroBackground, 4000); // Đổi ảnh sau mỗi 4 giây
+        setInterval(changeHeroBackground, 2000); // Đổi ảnh sau mỗi 4 giây
     </script>
 </body>
 </html>
