@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán - Hot Wheels Store</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,6 +11,61 @@
             padding: 0;
             background-color: #f4f4f4;
             text-align: center;
+        }
+        header {
+            background: #f78902;
+            color: white;
+            padding: 1px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo img {
+            width: 200px;
+            height: 100px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1px;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 15px 25px;
+            background-color: #f56d0531;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: white;
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        nav ul li a:hover::after,
+        nav ul li a:focus::after,
+        nav ul li a.active::after {
+            width: 100%;
+            left: 0;
+        }
+        nav ul li a:hover {
+            background-color: #c15013;
+            color: rgb(228, 203, 203);
+            transform: scale(1.05);
         }
         .checkout {
             max-width: 600px;
@@ -33,6 +87,11 @@
             color: white;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #c15013;
+            transform: scale(1.05);
         }
         iframe {
             width: 100%;
@@ -46,9 +105,29 @@
             background: #f8f8f8;
             border-radius: 5px;
         }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain"></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="products.html">Sản phẩm</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+                <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="checkout">
         <h2>Thông tin thanh toán</h2>
         <input type="text" id="name" placeholder="Họ và tên">
@@ -63,14 +142,25 @@
         <button onclick="submitOrder()">Hoàn tất thanh toán</button>
     </div>
 
+    <footer>
+        <p>&copy; 2025 Hot Wheels Store. All Rights Reserved.</p>
+    </footer>
+
     <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = count;
+        }
+
         function submitOrder() {
             const name = document.getElementById('name').value;
             const address = document.getElementById('address').value;
             const phone = document.getElementById('phone').value;
-            const totalPrice = 500000; // Đây là giá trị giả lập, có thể cập nhật từ giỏ hàng
+            const totalPrice = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
 
-            if (name && address && phone) {
+            if (name && address && phone && cart.length > 0) {
                 document.getElementById('order-summary').innerHTML = `
                     <h3>Chi tiết đơn hàng</h3>
                     <p><strong>Họ và tên:</strong> ${name}</p>
@@ -79,10 +169,17 @@
                     <p><strong>Tổng tiền:</strong> ${totalPrice.toLocaleString()} VND</p>
                 `;
                 alert("Đơn hàng của bạn đã được đặt thành công!");
+                localStorage.removeItem('cart');
+                cart = [];
+                updateCartCount();
+            } else if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
             } else {
                 alert("Vui lòng nhập đầy đủ thông tin!");
             }
         }
+
+        document.addEventListener('DOMContentLoaded', updateCartCount);
     </script>
 </body>
 </html>
