@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách sản phẩm - Hot Wheels Store</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,33 +12,66 @@
             background-color: #f4f4f4;
         }
         header {
-            background: #f28f16;
+            background: #f78902;
             color: white;
-            padding: 15px 20px;
+            padding: 1px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         .logo img {
-            width: 150px;
+            width: 200px;
+            height: 100px;
         }
         nav ul {
             list-style: none;
             display: flex;
-            gap: 15px;
-        }
-        nav ul li {
-            display: inline;
+            gap: 1px;
+            padding: 0;
+            margin: 0;
         }
         nav ul li a {
-            color: white;
+            color: #ffffff;
             text-decoration: none;
             font-weight: bold;
+            padding: 15px 25px;
+            background-color: #f56d0531;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
         }
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: white;
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        nav ul li a:hover::after,
+        nav ul li a:focus::after,
+        nav ul li a.active::after {
+            width: 100%;
+            left: 0;
+        }
+     
         .filter-bar {
             text-align: center;
             padding: 20px;
             background: white;
+        }
+        .filter-bar input {
+            padding: 10px;
+            width: 50%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
         .product-list {
             text-align: center;
@@ -58,6 +90,11 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             width: 250px;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        .product-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
         }
         .product-item img {
             width: 100%;
@@ -66,7 +103,19 @@
         }
         .product-item img:hover {
             transform: scale(1.1);
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .product-item button {
+            background: #f28f16;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .product-item button:hover {
+            background: #c15013;
+            transform: scale(1.05);
         }
         .pagination {
             text-align: center;
@@ -80,6 +129,17 @@
             border-radius: 5px;
             margin: 5px;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .pagination button:hover {
+            background: #c15013;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -89,7 +149,7 @@
         <nav>
             <ul>
                 <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="products.html">Sản phẩm</a></li>
+                <li><a href="products.html" class="active">Sản phẩm</a></li>
                 <li><a href="about.html">Giới thiệu</a></li>
                 <li><a href="contact.html">Liên hệ</a></li>
                 <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
@@ -98,7 +158,7 @@
     </header>
 
     <section class="filter-bar">
-        <input type="text" id="search" placeholder="Tìm kiếm sản phẩm..." onkeyup="filterProducts()">
+        <input type="text" id="search" placeholder="Tìm kiếm sản phẩm..." oninput="filterProducts()">
     </section>
 
     <section class="product-list">
@@ -112,6 +172,8 @@
     </footer>
 
     <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
         const products = Array.from({ length: 40 }, (_, i) => ({
             id: i + 1,
             name: `Hot Wheels Car ${i + 1}`,
@@ -159,10 +221,26 @@
         }
 
         function addToCart(id, name, price) {
+            const product = cart.find(item => item.id === id);
+            if (product) {
+                product.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
             alert(`Đã thêm ${name} vào giỏ hàng!`);
         }
 
-        displayProducts();
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = count;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            displayProducts();
+        });
     </script>
 </body>
 </html>
