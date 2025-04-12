@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới Thiệu - Hot Wheels Store</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,30 +12,56 @@
             background-color: #fffafa;
         }
         header {
-            background: #f28f16;
+            background: #f78902;
             color: white;
-            padding: 15px 20px;
+            padding: 1px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
+        .logo img {
+            width: 200px;
+            height: 100px;
         }
         nav ul {
             list-style: none;
             display: flex;
-            gap: 15px;
-        }
-        nav ul li {
-            display: inline;
+            gap: 1px;
+            padding: 0;
+            margin: 0;
         }
         nav ul li a {
-            color: rgb(255, 255, 255);
+            color: #ffffff;
             text-decoration: none;
             font-weight: bold;
+            padding: 15px 25px;
+            background-color: #f56d0531;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
         }
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: white;
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        nav ul li a:hover::after,
+        nav ul li a:focus::after,
+        nav ul li a.active::after {
+            width: 100%;
+            left: 0;
+        }
+       
         .about-section {
             text-align: center;
             padding: 20px;
@@ -55,14 +80,25 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             width: 300px;
             text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        .about-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
         }
         .about-item img {
             width: 100%;
             border-radius: 10px;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         footer {
             background: #333;
-            color: rgb(255, 255, 255);
+            color: white;
             text-align: center;
             padding: 20px;
             margin-top: 30px;
@@ -71,12 +107,12 @@
 </head>
 <body>
     <header>
-        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain" width="200" height="100"></div>
+        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain"></div>
         <nav>
             <ul>
                 <li><a href="index.html">Trang chủ</a></li>
                 <li><a href="products.html">Sản phẩm</a></li>
-                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="about.html" class="active">Giới thiệu</a></li>
                 <li><a href="contact.html">Liên hệ</a></li>
                 <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
             </ul>
@@ -107,6 +143,16 @@
     <footer>
         <p>&copy; 2025 Hot Wheels Store. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = count;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+    </script>
 </body>
 </html>
-
