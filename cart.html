@@ -1,11 +1,9 @@
-<!-- cart.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng - Hot Wheels Store</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,27 +12,56 @@
             background-color: #f4f4f4;
         }
         header {
-            background: #f28f16;
+            background: #f78902;
             color: white;
-            padding: 15px 20px;
+            padding: 1px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
+        .logo img {
+            width: 200px;
+            height: 100px;
         }
         nav ul {
             list-style: none;
             display: flex;
-            gap: 15px;
+            gap: 1px;
+            padding: 0;
+            margin: 0;
         }
         nav ul li a {
-            color: white;
+            color: #ffffff;
             text-decoration: none;
             font-weight: bold;
+            padding: 15px 25px;
+            background-color: #f56d0531;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
         }
+        nav ul li a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: white;
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        nav ul li a:hover::after,
+        nav ul li a:focus::after,
+        nav ul li a.active::after {
+            width: 100%;
+            left: 0;
+        }
+      
         .cart {
             text-align: center;
             padding: 30px;
@@ -63,6 +90,9 @@
             background: #f28f16;
             color: white;
         }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
         .cart button {
             padding: 10px 15px;
             background: #f28f16;
@@ -70,10 +100,17 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            margin: 5px;
         }
         .cart button:hover {
-            background: #f28f16;
+            background: #c15013;
+            transform: scale(1.05);
+        }
+        .empty-cart {
+            color: #888;
+            font-size: 1.2em;
+            margin: 20px 0;
         }
         .fade-in {
             opacity: 0;
@@ -94,21 +131,22 @@
 </head>
 <body>
     <header>
-        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain" width="200" height="100"></div>
+        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain"></div>
         <nav>
             <ul>
                 <li><a href="index.html">Trang chủ</a></li>
                 <li><a href="products.html">Sản phẩm</a></li>
                 <li><a href="about.html">Giới thiệu</a></li>
                 <li><a href="contact.html">Liên hệ</a></li>
-                <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+                <li><a href="cart.html" class="active">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
             </ul>
         </nav>
     </header>
     
     <section class="cart">
         <h1>Giỏ hàng của bạn</h1>
-        <table>
+        <div id="empty-cart-message" class="empty-cart" style="display: none;">Giỏ hàng của bạn đang trống!</div>
+        <table id="cart-table">
             <thead>
                 <tr>
                     <th>Sản phẩm</th>
@@ -122,7 +160,6 @@
         <p>Tổng cộng: <strong id="total-price">0</strong> VND</p>
         <button onclick="clearCart()">Xóa giỏ hàng</button>
         <button onclick="window.location.href='checkout.html'">Thanh toán</button>
-
     </section>
     
     <footer>
@@ -136,23 +173,33 @@
             let cartItemsContainer = document.getElementById('cart-items');
             let totalPrice = 0;
             cartItemsContainer.innerHTML = '';
-            cart.forEach((item, index) => {
-                totalPrice += item.quantity * item.price;
-                let row = document.createElement('tr');
-                row.classList.add('fade-in');
-                row.innerHTML = `
-                    <td>${item.name}</td>
-                    <td>${item.price} VND</td>
-                    <td>
-                        <button onclick="changeQuantity(${index}, -1)">-</button>
-                        ${item.quantity}
-                        <button onclick="changeQuantity(${index}, 1)">+</button>
-                    </td>
-                    <td><button onclick="removeFromCart(${index})">X</button></td>
-                `;
-                cartItemsContainer.appendChild(row);
-            });
-            document.getElementById('total-price').innerText = totalPrice;
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const cartTable = document.getElementById('cart-table');
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartTable.style.display = 'none';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                cartTable.style.display = 'table';
+                cart.forEach((item, index) => {
+                    totalPrice += item.quantity * item.price;
+                    let row = document.createElement('tr');
+                    row.classList.add('fade-in');
+                    row.innerHTML = `
+                        <td>${item.name}</td>
+                        <td>${item.price.toLocaleString()} VND</td>
+                        <td>
+                            <button onclick="changeQuantity(${index}, -1)">-</button>
+                            ${item.quantity}
+                            <button onclick="changeQuantity(${index}, 1)">+</button>
+                        </td>
+                        <td><button onclick="removeFromCart(${index})">X</button></td>
+                    `;
+                    cartItemsContainer.appendChild(row);
+                });
+            }
+            document.getElementById('total-price').innerText = totalPrice.toLocaleString();
             document.getElementById('cart-count').innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
         }
 
