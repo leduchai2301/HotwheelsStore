@@ -29,21 +29,28 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 1px;
+            /* Tăng khoảng cách giữa các nút, ví dụ 10px */
+            gap: 10px; 
             padding: 0;
             margin: 0;
+            align-items: center; /* Đảm bảo các mục được căn giữa theo chiều dọc nếu chiều cao khác nhau */
         }
+
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
             font-weight: bold;
-            padding: 15px 25px;
-            background-color: #f56d0531;
+            /* Có thể điều chỉnh padding nếu cần, ví dụ: 15px 20px */
+            padding: 15px 20px; 
+            background: #f78902;
             border-radius: 4px;
             transition: all 0.3s ease;
             display: inline-block;
             position: relative;
         }
+
+        /* Giữ nguyên phần còn lại của CSS ... */
+        
         nav ul li a::after {
             content: '';
             display: block;
@@ -131,8 +138,19 @@
         .search-bar input {
             padding: 10px;
             width: 70%;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            border-radius: 10px;
+            border: 2px solid #f28f16;}
+            #search {
+    width: 80%; /* Chiều rộng của thanh tìm kiếm */
+    max-width: 500px; /* Giới hạn chiều rộng tối đa */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #f28f16; /* Màu viền */
+    border-radius: 20px; /* Bo tròn các góc */
+    outline: none;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động */
         }
         /* Combo Section */
         .combo-section {
