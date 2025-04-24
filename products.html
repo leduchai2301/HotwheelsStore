@@ -5,239 +5,616 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách sản phẩm - Hot Wheels Store</title>
     <style>
+        /* --- CSS Cơ bản --- */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header {
-            background: #f78902;
+            background: #f78902; /* Giữ màu cam */
             color: white;
-            padding: 1px 15px;
+            padding: 5px 15px; /* Giảm padding header */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
+            position: sticky; /* Giữ header cố định */
             top: 0;
-            z-index: 1000;
+            z-index: 1000; /* Đảm bảo header nổi trên */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Thêm bóng đổ nhẹ */
         }
         .logo img {
-            width: 200px;
-            height: 100px;
+            /* Điều chỉnh kích thước logo nếu cần */
+            width: 180px;
+            height: auto; /* Giữ tỷ lệ */
+            vertical-align: middle;
         }
         nav ul {
             list-style: none;
             display: flex;
-            gap: 1px;
+            gap: 5px; /* Giảm khoảng cách nút nav */
             padding: 0;
             margin: 0;
+            align-items: center;
         }
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
             font-weight: bold;
-            padding: 15px 25px;
-            background-color: #f56d0531;
+            padding: 10px 15px; /* Giảm padding nút nav */
+            background: transparent; /* Nền trong suốt ban đầu */
+            /* border: 2px solid transparent; /* Bỏ border cũ */
             border-radius: 4px;
-            transition: all 0.3s ease;
-            display: inline-block;
-            position: relative;
+            transition: color 0.3s ease; /* Chỉ transition màu chữ nếu cần */
+            display: inline-block; /* Giữ nguyên */
+            position: relative; /* Cần cho pseudo-element */
+            font-size: 0.9em; /* Giảm nhẹ cỡ chữ nav */
+            overflow: hidden; /* Ngăn gạch chân tràn ra ngoài */
         }
+
+        /* --- Hiệu ứng gạch chân động --- */
         nav ul li a::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background: white;
-            position: absolute;
-            left: 50%;
-            bottom: -5px;
-            transition: width 0.3s ease, left 0.3s ease;
+            content: ''; /* Bắt buộc cho pseudo-element */
+            position: absolute; /* Định vị tuyệt đối so với thẻ a */
+            bottom: 5px; /* Khoảng cách từ dưới lên (điều chỉnh nếu cần) */
+            left: 50%; /* Bắt đầu từ giữa */
+            transform: translateX(-50%); /* Căn giữa đường gạch */
+            width: 0; /* Chiều rộng ban đầu là 0 */
+            height: 2px; /* Độ dày của gạch chân */
+            background-color: white; /* Màu gạch chân */
+            transition: width 0.3s ease-in-out; /* Hiệu ứng chuyển động cho width */
         }
+
         nav ul li a:hover::after,
-        nav ul li a:focus::after,
+        nav ul li a:focus::after, /* Thêm focus state */
         nav ul li a.active::after {
-            width: 100%;
-            left: 0;
+            width: 80%; /* Chiều rộng khi hover/active (có thể là 100% hoặc ít hơn) */
         }
-     
+        /* --- Kết thúc hiệu ứng gạch chân --- */
+
+        /* Bỏ style hover/active cũ */
+        /*
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        */
+
+
+        /* --- Thanh Filter --- */
         .filter-bar {
-            text-align: center;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px 15px; /* Khoảng cách dọc và ngang */
+            padding: 15px; /* Giảm padding */
             background: white;
+            margin-bottom: 20px; /* Giảm margin dưới */
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee; /* Thêm đường kẻ dưới */
         }
-        .filter-bar input {
-            padding: 10px;
-            width: 50%;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+        .filter-group { /* Nhóm label và input/select/checkbox */
+             display: flex;
+             align-items: center;
+             gap: 5px;
+        }
+        .filter-bar label {
+            font-weight: bold;
+            color: #555; /* Màu chữ tối hơn */
+            font-size: 0.9em; /* Giảm cỡ chữ label */
+            margin: 0; /* Bỏ margin mặc định */
+            cursor: pointer; /* Thêm cursor pointer cho label của checkbox */
+        }
+        .filter-bar input[type="text"],
+        .filter-bar select {
+            padding: 8px 12px; /* Điều chỉnh padding */
+            font-size: 0.95em; /* Hơi nhỏ hơn */
+            border: 1px solid #ccc; /* Viền mảnh hơn */
+            border-radius: 5px; /* Bo góc ít hơn */
+            outline: none;
+            background-color: #fff;
+            color: #333;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            min-width: 140px; /* Điều chỉnh chiều rộng tối thiểu */
+            box-sizing: border-box; /* Tính padding vào width */
+        }
+        .filter-bar input[type="text"] {
+            flex-grow: 1; /* Cho ô tìm kiếm co giãn */
+            max-width: 250px; /* Giới hạn chiều rộng ô search */
+        }
+        .filter-bar input[type="checkbox"] {
+             margin-right: 3px; /* Khoảng cách với label */
+             cursor: pointer;
+             accent-color: #f78902; /* Màu dấu tick */
+             transform: scale(1.1); /* Làm checkbox to hơn chút */
+        }
+        .filter-bar input:focus,
+        .filter-bar select:focus {
+            border-color: #f78902; /* Đổi màu viền khi focus */
+            box-shadow: 0 0 5px rgba(247, 137, 2, 0.3); /* Thêm hiệu ứng bóng mờ */
+        }
+
+        /* --- Main Content --- */
+        main {
+            flex-grow: 1;
+            padding: 0 15px; /* Thêm padding ngang cho main */
         }
         .product-list {
             text-align: center;
-            padding: 20px;
+            padding: 0; /* Bỏ padding cũ */
+        }
+        .product-list h2 {
+             margin-top: 0; /* Bỏ margin top của H2 */
+             margin-bottom: 20px;
+             color: #333;
         }
         .product-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            display: grid; /* Chuyển sang Grid Layout */
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Responsive Grid */
+            gap: 20px; /* Khoảng cách giữa các item */
+            justify-content: center; /* Căn giữa grid nếu chỉ có ít item */
         }
         .product-item {
-            background: #febf38;
+            background: #fff; /* Nền trắng cho item */
             padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            width: 250px;
+            border-radius: 8px; /* Bo góc ít hơn */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ hơn */
             text-align: center;
-            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng khi hover */
         }
         .product-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+             transform: translateY(-5px); /* Nhấc lên khi hover */
+             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         .product-item img {
             width: 100%;
-            border-radius: 10px;
-            transition: transform 0.3s ease-in-out;
+            max-height: 180px; /* Giảm chiều cao ảnh */
+            object-fit: contain;
+            border-radius: 5px; /* Bo góc ảnh */
+            margin-bottom: 10px;
         }
+        /* Bỏ hiệu ứng hover scale ảnh */
         .product-item img:hover {
-            transform: scale(1.1);
+            transform: none;
+            box-shadow: none;
+        }
+        .product-item h3 {
+            font-size: 1em; /* Cỡ chữ tên sản phẩm */
+            margin: 10px 0;
+            flex-grow: 1;
+            color: #333;
+            line-height: 1.3; /* Giãn dòng */
+            height: 2.6em; /* Giới hạn 2 dòng */
+            overflow: hidden; /* Ẩn text thừa */
+        }
+        .product-item p {
+            font-size: 1.1em; /* Giá to hơn */
+            font-weight: bold;
+            color: #f78902; /* Màu giá cam */
+            margin: 5px 0 15px 0;
         }
         .product-item button {
-            background: #f28f16;
+            background-color: #4CAF50;
             color: white;
+            padding: 10px 15px;
             border: none;
-            padding: 10px;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 0.95em; /* Cỡ chữ nút */
+            transition: background-color 0.3s;
+            align-self: center;
+            width: 90%; /* Nút rộng hơn */
         }
         .product-item button:hover {
-            background: #c15013;
-            transform: scale(1.05);
+            background-color: #45a049;
         }
+
+        /* --- Phân trang & Footer --- */
         .pagination {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            padding-bottom: 20px;
         }
         .pagination button {
-            background: #f28f16;
+            background: #555; /* Màu nút tối hơn */
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin: 5px;
+            padding: 8px 13px; /* Giảm padding nút */
+            border-radius: 4px;
+            margin: 3px; /* Giảm margin nút */
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
         }
         .pagination button:hover {
-            background: #c15013;
+            background-color: #333;
+        }
+        .pagination button.active {
+            background-color: #f78902; /* Màu cam cho nút active */
+            font-weight: bold;
+        }
+        #no-results {
+            display: none;
+            margin: 40px 0; /* Tăng khoảng cách thông báo */
+            font-size: 1.1em;
+            color: #666;
         }
         footer {
-            background: #333;
-            color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 30px;
+            padding: 15px; /* Giảm padding footer */
+            background: #333;
+            color: #ccc; /* Màu chữ nhạt hơn */
+            width: 100%;
+            margin-top: auto;
+            font-size: 0.9em;
         }
+
+        /* --- Toast Notification --- */
+        .toast-notification {
+             position: fixed;
+             bottom: 20px;
+             left: 50%;
+             transform: translateX(-50%);
+             background-color: rgba(0,0,0,0.7);
+             color: white;
+             padding: 10px 20px;
+             border-radius: 5px;
+             z-index: 2000;
+             opacity: 0;
+             transition: opacity 0.5s ease;
+             font-size: 0.9em;
+        }
+        .toast-notification.show {
+             opacity: 1;
+        }
+
     </style>
 </head>
 <body>
     <header>
-        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain"></div>
+        <div class="logo">
+            <img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain" alt="Hot Wheels Logo">
+        </div>
         <nav>
             <ul>
                 <li><a href="index.html">Trang chủ</a></li>
                 <li><a href="products.html" class="active">Sản phẩm</a></li>
                 <li><a href="about.html">Giới thiệu</a></li>
                 <li><a href="contact.html">Liên hệ</a></li>
-                <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+                <li><a href="cart.html">🛒 (<span id="cart-count">0</span>)</a> </li>
             </ul>
         </nav>
     </header>
 
-    <section class="filter-bar">
-        <input type="text" id="search" placeholder="Tìm kiếm sản phẩm..." oninput="filterProducts()">
-    </section>
+    <main>
+        <section class="filter-bar">
+            <div class="filter-group">
+                 <input type="text" id="search" placeholder="Tìm theo tên...">
+            </div>
+            <div class="filter-group">
+                <label for="price-filter">Giá:</label>
+                <select id="price-filter">
+                    <option value="all">Tất cả</option>
+                    <option value="0-150000">Dưới 150K</option>
+                    <option value="150000-170000">150K - 170K</option>
+                    <option value="170001-190000">170K - 190K</option>
+                    <option value="190000-">Trên 190K</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="type-filter">Loại xe:</label>
+                <select id="type-filter">
+                    <option value="all">Tất cả</option>
+                    </select>
+            </div>
+             <div class="filter-group">
+                <label for="season-filter">Theo mùa:</label>
+                <select id="season-filter">
+                    <option value="all">Tất cả</option>
+                     </select>
+            </div>
+             <div class="filter-group">
+                 <input type="checkbox" id="new-arrival-filter">
+                 <label for="new-arrival-filter">Hàng mới</label>
+            </div>
+             <div class="filter-group">
+                 <input type="checkbox" id="best-seller-filter">
+                 <label for="best-seller-filter">Bán chạy</label>
+            </div>
+            <div class="filter-group">
+                 <input type="checkbox" id="collectible-filter">
+                 <label for="collectible-filter">Cho người sưu tập</label>
+            </div>
+            <div class="filter-group">
+                 <input type="checkbox" id="giftable-filter">
+                 <label for="giftable-filter">Làm quà tặng</label>
+            </div>
+            </section>
 
-    <section class="product-list">
-        <h2>Tất cả sản phẩm</h2>
-        <div class="product-grid" id="product-container"></div>
-        <div class="pagination" id="pagination"></div>
-    </section>
+        <section class="product-list">
+            <h2>Tất cả sản phẩm</h2>
+            <div id="no-results">Không tìm thấy sản phẩm phù hợp.</div>
+            <div class="product-grid" id="product-container">
+                </div>
+            <div class="pagination" id="pagination">
+                </div>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; 2025 Hot Wheels Store. All Rights Reserved.</p>
     </footer>
 
     <script>
+        // === DỮ LIỆU SẢN PHẨM (Thêm thuộc tính isCollectible, isGiftable) ===
+        const products = [
+            // Thêm isCollectible, isGiftable (true/false)
+            // Lưu ý: Đây là dữ liệu mẫu, bạn cần xác định tiêu chí này cho sản phẩm thật
+            { id: 1, name: "Hot Wheels Car 1", price: 150000, img: "https://m.media-amazon.com/images/I/71hXEHxjY1L._AC_SL1500_.jpg", type: "Muscle Car", isBestSeller: true, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 2, name: "Hot Wheels Car 2", price: 160000, img: "https://m.media-amazon.com/images/I/81fw+1VI2dL._AC_SL1500_.jpg", type: "Exotic", isBestSeller: false, isNewArrival: true, season: null, isCollectible: true, isGiftable: true },
+            { id: 3, name: "Hot Wheels Car 3", price: 170000, img: "https://th.bing.com/th/id/OIP.3VN-8COTVSs7s6MDSqBkdgHaLH?w=800&h=1200&rs=1&pid=ImgDetMain", type: "Fantasy", isBestSeller: false, isNewArrival: false, season: "Halloween", isCollectible: false, isGiftable: true },
+            { id: 4, name: "Hot Wheels Car 4", price: 180000, img: "https://th.bing.com/th/id/OIP.dSgYRpk1qHQ-nuBCmgPchgAAAA?rs=1&pid=ImgDetMain", type: "Race Car", isBestSeller: true, isNewArrival: true, season: null, isCollectible: true, isGiftable: true },
+            { id: 5, name: "Hot Wheels Car 5", price: 190000, img: "https://th.bing.com/th/id/OIP.QHqI7eOSm8ZlDU6ye1vprwHaKn?pid=ImgDet&w=474&h=679&rs=1", type: "Truck", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 6, name: "Hot Wheels Car 6", price: 150000, img: "https://i.pinimg.com/originals/59/13/5e/59135edad7e2550f9cec7db4b1a70a96.jpg", type: "Muscle Car", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 7, name: "Hot Wheels Car 7", price: 160000, img: "https://i.pinimg.com/736x/e9/fb/88/e9fb8868934023ea0e4ad11aadb2ec7e.jpg", type: "Exotic", isBestSeller: true, isNewArrival: false, season: null, isCollectible: true, isGiftable: true },
+            { id: 8, name: "Hot Wheels Car 8", price: 170000, img: "https://th.bing.com/th/id/OIP.9SuXgWnJ-nTOdWTXQfB9VwHaLO?w=633&h=960&rs=1&pid=ImgDetMain", type: "Fantasy", isBestSeller: false, isNewArrival: true, season: "Holiday", isCollectible: false, isGiftable: true },
+            { id: 9, name: "Hot Wheels Car 9", price: 180000, img: "https://carrefourbr.vtexassets.com/arquivos/ids/138533566/af83901852c44bf5adf5f2447dc12fc3.jpg?v=638453438455400000", type: "Race Car", isBestSeller: false, isNewArrival: false, season: null, isCollectible: true, isGiftable: true },
+            { id: 10, name: "Hot Wheels Car 10", price: 190000, img: "https://th.bing.com/th/id/OIP.8jsMNU5RP8V8NrRmKb3pQwHaLE?w=856&h=1280&rs=1&pid=ImgDetMain", type: "Truck", isBestSeller: true, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 11, name: "Hot Wheels Car 11", price: 150000, img: "https://www.funcorp.in/cdn/shop/files/1000202605.webp?v=1731500274", type: "Muscle Car", isBestSeller: false, isNewArrival: true, season: null, isCollectible: false, isGiftable: true },
+            { id: 12, name: "Hot Wheels Car 12", price: 160000, img: "https://tools.toywiz.com/_images/_webp/_products/me/hwcsbedlam.webp", type: "Color Shifter", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 13, name: "Hot Wheels Car 13", price: 170000, img: "https://tools.toywiz.com/_images/_webp/_products/me/hwcolorcockneycab.webp", type: "Color Shifter", isBestSeller: true, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 14, name: "Hot Wheels Car 14", price: 180000, img: "https://tools.toywiz.com/_images/_webp/_products/lg/795154646135.webp", type: "Exotic", isBestSeller: false, isNewArrival: true, season: "Spring", isCollectible: true, isGiftable: true },
+            { id: 15, name: "Hot Wheels Car 15", price: 190000, img: "https://tools.toywiz.com/_images/_webp/_products/lg/hwcsjaded.webp", type: "Color Shifter", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 16, name: "Hot Wheels Car 16", price: 150000, img: "https://i5.walmartimages.com/seo/Hot-Wheels-Color-Shifters-Scorpedo-Diecast-Car_51838b25-3cf7-4f92-98b6-591c0b5be7c9.d5fadef34646b68f8811dd3b728d3c1f.jpeg", type: "Color Shifter", isBestSeller: true, isNewArrival: true, season: null, isCollectible: false, isGiftable: true },
+            { id: 17, name: "Hot Wheels Car 17", price: 160000, img: "https://th.bing.com/th/id/OIP.FEb-W5KKsI25rU2TErOAQAHaJx?w=1136&h=1500&rs=1&pid=ImgDetMain", type: "Fantasy", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 18, name: "Hot Wheels Car 18", price: 170000, img: "https://rukminim1.flixcart.com/image/832/832/vehicle-pull-along/k/s/e/hot-wheels-color-shifters-skull-crusher-original-imaduvbtfhrweh6j.jpeg?q=70", type: "Color Shifter", isBestSeller: false, isNewArrival: false, season: "Halloween", isCollectible: false, isGiftable: true },
+            { id: 19, name: "Hot Wheels Car 19", price: 180000, img: "https://th.bing.com/th/id/OIP.aysy1m3q01CYsP5ShPNDegHaJU?w=1323&h=1664&rs=1&pid=ImgDetMain", type: "Race Car", isBestSeller: true, isNewArrival: false, season: null, isCollectible: true, isGiftable: true },
+            { id: 20, name: "Hot Wheels Car 20", price: 190000, img: "https://th.bing.com/th/id/OIP.k04c-Emxh_6qibXc-tI4EgHaJd?w=1605&h=2051&rs=1&pid=ImgDetMain", type: "Truck", isBestSeller: false, isNewArrival: true, season: null, isCollectible: false, isGiftable: true },
+            { id: 21, name: "Hot Wheels Car 21", price: 150000, img: "https://th.bing.com/th/id/OIP.HyeSB1uLaO_YiBxlR6ZYbgHaJd?w=800&h=1022&rs=1&pid=ImgDetMain", type: "Muscle Car", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 22, name: "Hot Wheels Car 22", price: 160000, img: "https://th.bing.com/th/id/R.abdc8036f6a8f899cb97a48ae3a6bc39?rik=UuD7gd%2bTHVG8Fg&riu=http%3a%2f%2fimg5a.flixcart.com%2fimage%2fvehicle-pull-along%2f9%2fv%2fn%2fhot-wheels-color-shifters-aeroflash-original-imaduvbskxghh9gc.jpeg&ehk=ukBXO5nWEvzNX139tSzN559Sz3%2bn%2f0ctN9j%2ffsiwvM4%3d&risl=&pid=ImgRaw&r=0", type: "Color Shifter", isBestSeller: true, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 23, name: "Hot Wheels Car 23", price: 170000, img: "https://m.media-amazon.com/images/I/61+fJJsf4sL._AC_SL1000_.jpg", type: "Fantasy", isBestSeller: false, isNewArrival: true, season: "Holiday", isCollectible: false, isGiftable: true },
+            { id: 24, name: "Mazda RX-7 24", price: 180000, img: "https://cdn11.bigcommerce.com/s-0kvv9/images/stencil/1280x1280/products/183979/264672/hotwheels201895mazdarx7__44312.1519145291.jpg?c=2&imbypass=on", type: "JDM", isBestSeller: true, isNewArrival: true, season: null, isCollectible: true, isGiftable: true },
+            { id: 25, name: "Hot Wheels Car 25", price: 190000, img: "https://th.bing.com/th/id/OIP.puhywt54Ak21DcnXETKt-gHaK9?w=1200&h=1777&rs=1&pid=ImgDetMain", type: "Truck", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 26, name: "Hot Wheels Car 26", price: 150000, img: "https://th.bing.com/th/id/OIP.WWuvBzgYgtsnooYOeYFk6QHaK9?w=1200&h=1777&rs=1&pid=ImgDetMain", type: "Muscle Car", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 27, name: "Hot Wheels Car 27", price: 160000, img: "https://th.bing.com/th/id/OIP.CcNRBgZkGrabdIyLRG69wgHaLH?w=1139&h=1710&rs=1&pid=ImgDetMain", type: "Exotic", isBestSeller: true, isNewArrival: false, season: null, isCollectible: true, isGiftable: true },
+            { id: 28, name: "Mazda RX-7 28", price: 170000, img: "https://globaldiecastdirect.com/48468-large_default/hot-wheels-car-culture-street-tuners-mazda-rx-7.jpg", type: "JDM", isBestSeller: false, isNewArrival: true, season: null, isCollectible: true, isGiftable: false }, // Ví dụ: Sưu tập, không hợp làm quà?
+            { id: 29, name: "Hot Wheels Car 29", price: 180000, img: "https://th.bing.com/th/id/OIP.RVfZkzfz6Epndx2mXhzuYAHaK9?rs=1&pid=ImgDetMain", type: "Race Car", isBestSeller: false, isNewArrival: false, season: null, isCollectible: true, isGiftable: true },
+            { id: 30, name: "Datsun 240Z 30", price: 190000, img: "https://www.picclickimg.com/Dn0AAOSwO8xiWbOm/Hot-Wheels-Decades-70s-Custom-Datsun-240Z.webp", type: "JDM", isBestSeller: true, isNewArrival: false, season: null, isCollectible: true, isGiftable: false }, // Ví dụ: Sưu tập, không hợp làm quà?
+            { id: 31, name: "Hot Wheels Car 31", price: 150000, img: "https://m.media-amazon.com/images/I/71rKAhEo-+L._AC_SL1500_.jpg", type: "Muscle Car", isBestSeller: false, isNewArrival: true, season: null, isCollectible: false, isGiftable: true },
+            { id: 32, name: "Hot Wheels Car 32", price: 160000, img: "https://th.bing.com/th/id/R.c798903d872cad28ed33f8d0ab1770c8?rik=o55xVkrSOSkKkA&riu=http%3a%2f%2fmapleandmangoes.ca%2fcdn%2fshop%2ffiles%2fFPY-G-1_1200x1200.jpg%3fv%3d1702661945&ehk=QaNGqcUIKWK0IK%2fjBUTCXDPGm9ZlgBlW9RBrS3JetqY%3d&risl=&pid=ImgRaw&r=0", type: "Exotic", isBestSeller: false, isNewArrival: false, season: null, isCollectible: true, isGiftable: true },
+            { id: 33, name: "Hot Wheels Car 33", price: 170000, img: "https://i.pinimg.com/originals/4f/2d/4b/4f2d4bd63b2923039c62534484e4b587.jpg", type: "Fantasy", isBestSeller: true, isNewArrival: false, season: "Spring", isCollectible: false, isGiftable: true },
+            { id: 34, name: "Hot Wheels Car 34", price: 180000, img: "https://www.hlj.com/productimages/mtr/mtrhnk00_0.jpg", type: "Race Car", isBestSeller: false, isNewArrival: true, season: null, isCollectible: true, isGiftable: true },
+            { id: 35, name: "Hot Wheels Car 35", price: 190000, img: "https://th.bing.com/th/id/OIP.ne6w2OfIN_dxFoNebFo2mwHaKv?w=827&h=1200&rs=1&pid=ImgDetMain", type: "Truck", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 36, name: "Porsche 911 Carrera RS 36", price: 150000, img: "https://www.picclickimg.com/SKMAAOSw8Q1k7pJb/2023-Hot-Wheels-Orange-Porsche-911-Carrera-RS.webp", type: "Exotic", isBestSeller: true, isNewArrival: true, season: null, isCollectible: true, isGiftable: true },
+            { id: 37, name: "Hot Wheels Car 37", price: 160000, img: "https://m.media-amazon.com/images/I/61H7r74QR8L._AC_SL1093_.jpg", type: "Muscle Car", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 38, name: "Hot Wheels Car 38", price: 170000, img: "https://www.hlj.com/productimages/mtr/mtrhxp90-9866_0.jpg", type: "Fantasy", isBestSeller: false, isNewArrival: false, season: null, isCollectible: false, isGiftable: true },
+            { id: 39, name: "Mazda RX-7 39", price: 180000, img: "https://th.bing.com/th/id/R.2aad156efd73af7fb6622db644772d29?rik=RK3DTvsjMwfg%2fQ&riu=http%3a%2f%2fwww.hwtreasure.com%2fwp-content%2fuploads%2fcars%2f2020-Mazda-RX-7.jpg&ehk=0YUbRMZ99DU3cViINe1GsvFgA4Nasfw9uBtB2cVQKkA%3d&risl=&pid=ImgRaw&r=0", type: "JDM", isBestSeller: true, isNewArrival: false, season: null, isCollectible: true, isGiftable: false }, // Ví dụ: Sưu tập, không hợp làm quà?
+            { id: 40, name: "Hot Wheels Car 40", price: 190000, img: "https://th.bing.com/th/id/OIP.78GdTwkjPPRVHhSTqyfoAgHaLC?rs=1&pid=ImgDetMain", type: "Truck", isBestSeller: false, isNewArrival: true, season: "Holiday", isCollectible: false, isGiftable: true },
+        ];
+
+        // === BIẾN TOÀN CỤC ===
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        const products = Array.from({ length: 40 }, (_, i) => ({
-            id: i + 1,
-            name: `Hot Wheels Car ${i + 1}`,
-            price: 150000 + (i % 5) * 10000,
-            img: `https://cdn.shopify.com/s/files/1/0731/6514/4343/files/sieu-xe-kro-promo-car-${(i % 10) + 1}.jpg?v=1741257486&width=500`
-        }));
-        
         let currentPage = 1;
-        const productsPerPage = 20;
+        const productsPerPage = 12;
 
+        // === DOM ELEMENTS ===
+        const searchInput = document.getElementById("search");
+        const priceFilterSelect = document.getElementById("price-filter");
+        const typeFilterSelect = document.getElementById("type-filter");
+        const seasonFilterSelect = document.getElementById("season-filter");
+        const newArrivalFilterCheckbox = document.getElementById("new-arrival-filter");
+        const bestSellerFilterCheckbox = document.getElementById("best-seller-filter");
+        const collectibleFilterCheckbox = document.getElementById("collectible-filter"); // Mới
+        const giftableFilterCheckbox = document.getElementById("giftable-filter"); // Mới
+        const productContainer = document.getElementById("product-container");
+        const paginationContainer = document.getElementById("pagination");
+        const cartCountSpan = document.getElementById("cart-count");
+        const noResultsDiv = document.getElementById("no-results");
+
+        // === FUNCTIONS ===
+
+        // Tạo các option cho bộ lọc loại xe
+        function populateTypeFilter() {
+            const types = [...new Set(products.map(p => p.type).filter(Boolean))].sort();
+            types.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeFilterSelect.appendChild(option);
+            });
+        }
+
+        // Tạo các option cho bộ lọc mùa
+        function populateSeasonFilter() {
+             const seasons = [...new Set(products.map(p => p.season).filter(Boolean))].sort();
+             seasons.forEach(season => {
+                const option = document.createElement('option');
+                option.value = season;
+                option.textContent = season;
+                seasonFilterSelect.appendChild(option);
+            });
+        }
+
+        // Hiển thị sản phẩm dựa trên TẤT CẢ bộ lọc và trang hiện tại
         function displayProducts() {
-            const searchQuery = document.getElementById("search").value.toLowerCase();
-            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchQuery));
-            
+            // Đọc giá trị từ tất cả các bộ lọc
+            const searchQuery = searchInput.value.toLowerCase();
+            const selectedPrice = priceFilterSelect.value;
+            const selectedType = typeFilterSelect.value;
+            const selectedSeason = seasonFilterSelect.value;
+            const filterNewArrival = newArrivalFilterCheckbox.checked;
+            const filterBestSeller = bestSellerFilterCheckbox.checked;
+            const filterCollectible = collectibleFilterCheckbox.checked; // Mới
+            const filterGiftable = giftableFilterCheckbox.checked; // Mới
+
+            // Lọc sản phẩm
+            const filteredProducts = products.filter(product => {
+                // Lọc theo tên
+                const nameMatch = product.name.toLowerCase().includes(searchQuery);
+
+                // Lọc theo giá
+                let priceMatch = true;
+                if (selectedPrice !== 'all') {
+                    if (selectedPrice.endsWith('-')) {
+                        const minPrice = parseInt(selectedPrice.slice(0, -1), 10);
+                        priceMatch = product.price >= minPrice;
+                    } else {
+                        const [min, max] = selectedPrice.split('-').map(Number);
+                        priceMatch = product.price >= min && product.price <= max;
+                    }
+                }
+
+                // Lọc theo loại xe
+                const typeMatch = selectedType === 'all' || product.type === selectedType;
+
+                // Lọc theo mùa
+                const seasonMatch = selectedSeason === 'all' || product.season === selectedSeason;
+
+                // Lọc hàng mới
+                const newArrivalMatch = !filterNewArrival || product.isNewArrival === true;
+
+                // Lọc bán chạy
+                const bestSellerMatch = !filterBestSeller || product.isBestSeller === true;
+
+                // (Mới) Lọc cho người sưu tập
+                const collectibleMatch = !filterCollectible || product.isCollectible === true;
+
+                // (Mới) Lọc làm quà tặng
+                const giftableMatch = !filterGiftable || product.isGiftable === true;
+
+                // Trả về true nếu khớp TẤT CẢ điều kiện
+                return nameMatch && priceMatch && typeMatch && seasonMatch && newArrivalMatch && bestSellerMatch && collectibleMatch && giftableMatch;
+            });
+
+            // Kiểm tra nếu không có kết quả
+            if (filteredProducts.length === 0) {
+                productContainer.innerHTML = '';
+                paginationContainer.innerHTML = '';
+                noResultsDiv.style.display = 'block';
+                return;
+            } else {
+                noResultsDiv.style.display = 'none';
+            }
+
+            // Tính toán phân trang
             const start = (currentPage - 1) * productsPerPage;
             const end = start + productsPerPage;
             const paginatedProducts = filteredProducts.slice(start, end);
 
-            const container = document.getElementById("product-container");
-            container.innerHTML = paginatedProducts.map(product => `
+            // Hiển thị sản phẩm lên grid
+            productContainer.innerHTML = paginatedProducts.map(product => `
                 <div class="product-item">
-                    <img src="${product.img}" alt="${product.name}">
-                    <h3>${product.name}</h3>
+                    <img src="${product.img}" alt="${product.name}" loading="lazy"> <h3>${product.name}</h3>
                     <p>${product.price.toLocaleString()} VND</p>
-                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Thêm vào giỏ hàng</button>
-                </div>
+                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Thêm vào giỏ</button> </div>
             `).join("");
 
+            // Hiển thị phân trang
             displayPagination(filteredProducts.length);
         }
 
+        // Hiển thị các nút phân trang
         function displayPagination(totalProducts) {
             const totalPages = Math.ceil(totalProducts / productsPerPage);
-            const pagination = document.getElementById("pagination");
-            pagination.innerHTML = "";
+            paginationContainer.innerHTML = "";
+
+            if (totalPages <= 1) return;
 
             for (let i = 1; i <= totalPages; i++) {
-                pagination.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.onclick = () => changePage(i);
+                if (i === currentPage) {
+                    button.classList.add('active');
+                }
+                paginationContainer.appendChild(button);
             }
         }
 
+        // Chuyển trang
         function changePage(page) {
             currentPage = page;
             displayProducts();
+            window.scrollTo({ top: productContainer.offsetTop - 100, behavior: 'smooth' });
         }
 
+        // Thêm sản phẩm vào giỏ hàng
         function addToCart(id, name, price) {
-            const product = cart.find(item => item.id === id);
-            if (product) {
-                product.quantity += 1;
+            const existingProductIndex = cart.findIndex(item => item.id === id);
+            if (existingProductIndex > -1) {
+                cart[existingProductIndex].quantity++;
             } else {
                 cart.push({ id, name, price, quantity: 1 });
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
-            alert(`Đã thêm ${name} vào giỏ hàng!`);
+            showToast(`Đã thêm ${name} vào giỏ!`);
         }
 
+        // Hàm hiển thị thông báo nhanh (Toast)
+        function showToast(message) {
+             // Xóa toast cũ nếu có
+             const existingToast = document.querySelector('.toast-notification');
+             if (existingToast) {
+                 document.body.removeChild(existingToast);
+             }
+
+             // Tạo toast mới
+             const toast = document.createElement('div');
+             toast.textContent = message;
+             toast.className = 'toast-notification'; // Sử dụng class để style
+             document.body.appendChild(toast);
+
+             // Fade in
+             setTimeout(() => { toast.classList.add('show'); }, 10); // Thêm class 'show' để kích hoạt transition
+
+             // Fade out and remove
+             setTimeout(() => {
+                 toast.classList.remove('show'); // Bỏ class 'show'
+                 setTimeout(() => {
+                     // Kiểm tra xem toast còn tồn tại trước khi xóa
+                     if (toast.parentNode === document.body) {
+                         document.body.removeChild(toast);
+                     }
+                 }, 500); // Đợi transition hoàn thành
+             }, 2500);
+        }
+
+        // Cập nhật số lượng hiển thị trên icon giỏ hàng
         function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').innerText = count;
+            const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountSpan.innerText = cartCount;
         }
 
+        // === EVENT LISTENERS ===
+        // Hàm chung để reset trang và gọi displayProducts
+        function handleFilterChange() {
+             currentPage = 1;
+             displayProducts();
+        }
+
+        // Gắn listener cho tất cả các bộ lọc
+        searchInput.addEventListener('keyup', handleFilterChange);
+        priceFilterSelect.addEventListener('change', handleFilterChange);
+        typeFilterSelect.addEventListener('change', handleFilterChange);
+        seasonFilterSelect.addEventListener('change', handleFilterChange);
+        newArrivalFilterCheckbox.addEventListener('change', handleFilterChange);
+        bestSellerFilterCheckbox.addEventListener('change', handleFilterChange);
+        collectibleFilterCheckbox.addEventListener('change', handleFilterChange); // Mới
+        giftableFilterCheckbox.addEventListener('change', handleFilterChange); // Mới
+
+        // === INITIALIZATION ===
         document.addEventListener('DOMContentLoaded', () => {
+            populateTypeFilter();
+            populateSeasonFilter();
             updateCartCount();
             displayProducts();
         });
