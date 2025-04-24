@@ -232,8 +232,8 @@
                 <li><a href="#home" class="active">Trang chủ</a></li>
                 <li><a href="products.html">Sản phẩm</a></li>
                 <li><a href="about.html">Giới thiệu</a></li>
-                <li><a href="contact.html">Liên hệ</a></li>
-                <li><a href="delivery.html" >Chính sách giao hàng</a></li>
+
+                
                 <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
             </ul>
         </nav>
@@ -340,9 +340,47 @@
         </div>
     </section>
 
-    <footer>
-        <p>© 2025 Hot Wheels Store. All Rights Reserved.</p>
-    </footer>
+  <footer class="bg-[#B50717] text-white py-10">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+    
+    <!-- Cột 1: Thông tin liên hệ -->
+    <div>
+      <h2 class="text-xl font-bold mb-4">Thông tin liên hệ</h2>
+      <ul class="space-y-2 text-sm">
+        <li>📍 33–35 đường số D4, khu Đô thị mới Him Lam,<br>Phường Tân Hưng, Quận 7, TP. Hồ Chí Minh</li>
+        <li>📞 19001208</li>
+        <li>📧 hotro@mykingdom.com.vn</li>
+        <li>🕒 Thứ 2 - Thứ 7: 8:00 - 17:00</li>
+        <li>🕒 Chủ nhật: 8:00 - 12:00</li>
+      </ul>
+    </div>
+
+    <!-- Cột 2: Điều khoản và chính sách -->
+    <div>
+      <h2 class="text-xl font-bold mb-4">Điều khoản và chính sách</h2>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#" class="hover:underline">Chính sách giao hàng</a></li>
+        <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
+        <li><a href="#" class="hover:underline">Chính sách bảo hành và đổi trả hàng hóa</a></li>
+        <li><a href="#" class="hover:underline">Chính sách thanh toán</a></li>
+        <li><a href="#" class="hover:underline">Điều kiện & Điều khoản thành viên</a></li>
+      </ul>
+    </div>
+
+    <!-- Cột 3: Hệ thống cửa hàng -->
+    <div>
+      <h2 class="text-xl font-bold mb-4">Hệ thống cửa hàng</h2>
+      <img src="https://mykingdom.com.vn/Media/Default/Store.jpg" alt="Cửa hàng MyKingdom" class="rounded-2xl shadow-lg">
+    </div>
+
+  </div>
+
+  <!-- Dòng bản quyền -->
+  <div class="text-center text-xs mt-10 px-4">
+    Công ty cổ phần Việt Tinh Anh - Số ĐKKD: 0309132354 do Sở Kế hoạch và Đầu tư cấp ngày 14/07/09
+  </div>
+</footer>
+
 
     <script>
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
