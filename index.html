@@ -29,28 +29,21 @@
         nav ul {
             list-style: none;
             display: flex;
-            /* Tăng khoảng cách giữa các nút, ví dụ 10px */
-            gap: 10px; 
+            gap: 1px;
             padding: 0;
             margin: 0;
-            align-items: center; /* Đảm bảo các mục được căn giữa theo chiều dọc nếu chiều cao khác nhau */
         }
-
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
             font-weight: bold;
-            /* Có thể điều chỉnh padding nếu cần, ví dụ: 15px 20px */
-            padding: 15px 20px; 
-            background: #f78902;
+            padding: 15px 25px;
+            background-color: #f56d0531;
             border-radius: 4px;
             transition: all 0.3s ease;
             display: inline-block;
             position: relative;
         }
-
-        /* Giữ nguyên phần còn lại của CSS ... */
-        
         nav ul li a::after {
             content: '';
             display: block;
@@ -74,7 +67,7 @@
             height: 600px;
             position: relative;
             text-align: center;
-            color: white;
+            color: rgb(216, 121, 32);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -134,23 +127,18 @@
             margin: 20px auto;
             width: 50%;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
-        .search-bar input {
+        .search-bar input, .search-bar select {
             padding: 10px;
-            width: 70%;
-            border-radius: 10px;
-            border: 2px solid #f28f16;}
-            #search {
-    width: 80%; /* Chiều rộng của thanh tìm kiếm */
-    max-width: 500px; /* Giới hạn chiều rộng tối đa */
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #f28f16; /* Màu viền */
-    border-radius: 20px; /* Bo tròn các góc */
-    outline: none;
-    background-color: #fff;
-    color: #333;
-    transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động */
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .search-bar select {
+            width: 150px;
         }
         /* Combo Section */
         .combo-section {
@@ -222,6 +210,164 @@
             bottom: 10px;
             right: 10px;
         }
+        /* Why Choose CoolXPrint Section */
+        .why-choose {
+            padding: 50px 20px;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        .why-choose h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .why-choose-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .why-choose-item .icon {
+            margin-bottom: 15px;
+        }
+        .why-choose-item h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .why-choose-item p {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.5;
+        }
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #eb8f0e;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            font-size: 1.2em;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .back-to-top:hover {
+            background: #c15013;
+            transform: scale(1.1);
+        }
+        /* Chatbox Styles */
+        .chatbox {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            width: 350px;
+            height: 450px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .chatbox-header {
+            background: #eb8f0e;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbox-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .chatbox-header .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        .chatbox-body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background: #f9f9f9;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .chat-message.user {
+            background: #eb8f0e;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .chat-message.bot {
+            background: #e0e0e0;
+            color: #333;
+            margin-right: auto;
+        }
+        .chatbox-footer {
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 10px;
+        }
+        .chatbox-footer input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        .chatbox-footer button {
+            padding: 8px 15px;
+            background: #eb8f0e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .chatbox-footer button:hover {
+            background: #c15013;
+        }
+        .chatbox-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            background: #eb8f0e;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .chatbox-toggle:hover {
+            background: #c15013;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -232,8 +378,7 @@
                 <li><a href="#home" class="active">Trang chủ</a></li>
                 <li><a href="products.html">Sản phẩm</a></li>
                 <li><a href="about.html">Giới thiệu</a></li>
-
-                
+                <li><a href="contact.html">Liên hệ</a></li>
                 <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
             </ul>
         </nav>
@@ -245,45 +390,93 @@
         <a href="products.html" class="btn">Xem ngay</a>
     </section>
 
+    <!-- Why Choose CoolXPrint Section -->
+    <section class="why-choose">
+        <div class="why-choose-grid">
+            <div class="why-choose-item">
+                <div class="icon">
+                    <!-- Biểu tượng Chất lượng đảm bảo -->
+                    <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="40" stroke="#1E90FF" stroke-width="5"/>
+                        <path d="M50 20L60 40L80 45L65 60L70 80L50 70L30 80L35 60L20 45L40 40L50 20Z" fill="#FFD700"/>
+                    </svg>
+                </div>
+                <h3>Chất lượng đảm bảo</h3>
+                <p>Các sản phẩm thuộc dự án CoolXPrint được sản xuất và giao hàng toàn quốc theo tiêu chuẩn như các sản phẩm tương tự của CoolXimate.</p>
+            </div>
+            <div class="why-choose-item">
+                <div class="icon">
+                    <!-- Biểu tượng Dịch vụ tận tâm -->
+                    <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="30" y="20" width="40" height="60" fill="#FFD700"/>
+                        <rect x="50" y="40" width="40" height="60" fill="#1E90FF" transform="rotate(90 50 40)"/>
+                    </svg>
+                </div>
+                <h3>Dịch vụ tận tâm</h3>
+                <p>CoolXPrint cam kết đem đến trải nghiệm 100% hài lòng với mỗi khách hàng. Nếu không hài lòng, chúng tôi sẽ hoàn lại tiền cho bạn.</p>
+            </div>
+            <div class="why-choose-item">
+                <div class="icon">
+                    <!-- Biểu tượng In với mọi số lượng -->
+                    <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="30" width="60" height="40" stroke="#1E90FF" stroke-width="5"/>
+                        <rect x="30" y="40" width="40" height="20" fill="#FFD700"/>
+                    </svg>
+                </div>
+                <h3>Giao hàng nhanh chóng</h3>
+                <p></p>
+            </div>
+        </div>
+    </section>
+
     <div class="search-bar">
         <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">
+        <select id="category-filter">
+            <option value="all">Tất cả danh mục</option>
+            <option value="xe-dua">Xe đua</option>
+            <option value="bo-phu-kien">Bộ phụ kiện</option>
+            <option value="combo">Combo</option>
+        </select>
+        <select id="sort-price">
+            <option value="default">Sắp xếp mặc định</option>
+            <option value="asc">Giá: Thấp đến cao</option>
+            <option value="desc">Giá: Cao đến thấp</option>
+        </select>
     </div>
 
     <section class="product-list" id="products">
         <h2>Sản phẩm nổi bật</h2>
         <div class="products-container">
-            <div class="product">
+            <div class="product" data-category="xe-dua" data-price="250000">
                 <img src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Hot Wheels Camaro">
                 <h3>Hot Wheels Camaro</h3>
                 <p>Giá: <span class="price">250,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="1" data-name="Hot Wheels Camaro" data-price="250000">Mua ngay</button>
             </div>
-            <div class="product">
+            <div class="product" data-category="xe-dua" data-price="280000">
                 <img src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Hot Wheels Mustang">
                 <h3>Hot Wheels Mustang</h3>
                 <p>Giá: <span class="price">280,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="2" data-name="Hot Wheels Mustang" data-price="280000">Mua ngay</button>
             </div>
-            <div class="product">
+            <div class="product" data-category="xe-dua" data-price="320000">
                 <img src="https://m.media-amazon.com/images/I/71G0KhcilRL._AC_SL1000_.jpg" alt="Hot Wheels Ferrari">
                 <h3>Hot Wheels Ferrari</h3>
                 <p>Giá: <span class="price">320,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="3" data-name="Hot Wheels Ferrari" data-price="320000">Mua ngay</button>
-            
             </div>
-            <div class="product">
+            <div class="product" data-category="xe-dua" data-price="250000">
                 <img src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Hot Wheels Camaro">
                 <h3>Hot Wheels Camaro</h3>
                 <p>Giá: <span class="price">250,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="1" data-name="Hot Wheels Camaro" data-price="250000">Mua ngay</button>
             </div>
-            <div class="product">
+            <div class="product" data-category="xe-dua" data-price="280000">
                 <img src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Hot Wheels Mustang">
                 <h3>Hot Wheels Mustang</h3>
                 <p>Giá: <span class="price">280,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="2" data-name="Hot Wheels Mustang" data-price="280000">Mua ngay</button>
             </div>
-         
         </div>
     </section>
 
@@ -295,43 +488,43 @@
             <div class="combo-text">
                 <h3>Combo Siêu Tốc Hot Wheels</h3>
                 <p>Khám phá bộ sưu tập Hot Wheels đỉnh cao với các mẫu xe Monster Truck, xe đua và nhiều hơn nữa!</p>
-                <button class="btn add-to-cart" data-id="4" data-name="Combo Siêu Tốc Hot Wheels" data-price="750000">Mua Ngay</button>
+                <button class="btn add-to-cart" data-id="4" data-name="Combo Siêu Tốc Hot Wheels" data-price="750000" data-category="combo">Mua Ngay</button>
             </div>
             <div class="combo-images">
                 <img class="combo-main-img" src="https://m.media-amazon.com/images/I/71G0KhcilRL._AC_SL1000_.jpg" alt="Monster Truck">
                 <img class="combo-side-img" src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Side Cars">
-                <img class="combo-bottom-img" src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Bottom Cars">
+                <img class="combo-bottom-img" src="https://th.bing.com/th/id/R.5bbe360db Jakarta.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Bottom Cars">
             </div>
         </div>
 
         <!-- Combo 2: Combo Phụ Kiện Đỉnh Cao -->
-         <h2>Combo phụ kiện đỉnh cao</h2>
+        <h2>Combo phụ kiện đỉnh cao</h2>
         <div class="products-container">
-            <div class="product">
+            <div class="product" data-category="bo-phu-kien" data-price="250000">
                 <img src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Hot Wheels Camaro">
                 <h3>Hot Wheels Camaro</h3>
                 <p>Giá: <span class="price">250,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="1" data-name="Hot Wheels Camaro" data-price="250000">Mua ngay</button>
             </div>
-            <div class="product">
+            <div class="product" data-category="bo-phu-kien" data-price="280000">
                 <img src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Hot Wheels Mustang">
                 <h3>Hot Wheels Mustang</h3>
                 <p>Giá: <span class="price">280,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="2" data-name="Hot Wheels Mustang" data-price="280000">Mua ngay</button>
             </div>
-            <div class="product">
+            <div class="product" data-category="bo-phu-kien" data-price="320000">
                 <img src="https://m.media-amazon.com/images/I/71G0KhcilRL._AC_SL1000_.jpg" alt="Hot Wheels Ferrari">
                 <h3>Hot Wheels Ferrari</h3>
                 <p>Giá: <span class="price">320,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="3" data-name="Hot Wheels Ferrari" data-price="320000">Mua ngay</button>
             </div>
-            <div class="product">
+            <div class="product" data-category="bo-phu-kien" data-price="250000">
                 <img src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Hot Wheels Camaro">
                 <h3>Hot Wheels Camaro</h3>
                 <p>Giá: <span class="price">250,000</span> VND</p>
                 <button class="btn add-to-cart" data-id="1" data-name="Hot Wheels Camaro" data-price="250000">Mua ngay</button>
             </div>
-            <div class="product">
+            <div class="product" data-category="bo-phu-kien" data-price="280000">
                 <img src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Hot Wheels Mustang">
                 <h3>Hot Wheels Mustang</h3>
                 <p>Giá: <span class="price">280,000</span> VND</p>
@@ -340,47 +533,28 @@
         </div>
     </section>
 
-  <footer class="bg-[#B50717] text-white py-10">
-  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-    
-    <!-- Cột 1: Thông tin liên hệ -->
-    <div>
-      <h2 class="text-xl font-bold mb-4">Thông tin liên hệ</h2>
-      <ul class="space-y-2 text-sm">
-        <li>📍 33–35 đường số D4, khu Đô thị mới Him Lam,<br>Phường Tân Hưng, Quận 7, TP. Hồ Chí Minh</li>
-        <li>📞 19001208</li>
-        <li>📧 hotro@mykingdom.com.vn</li>
-        <li>🕒 Thứ 2 - Thứ 7: 8:00 - 17:00</li>
-        <li>🕒 Chủ nhật: 8:00 - 12:00</li>
-      </ul>
+    <footer>
+        <p>© 2025 Hot Wheels Store. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">↑</div>
+
+    <!-- Chatbox -->
+    <div class="chatbox-toggle" id="chatbox-toggle">💬</div>
+    <div class="chatbox" id="chatbox">
+        <div class="chatbox-header">
+            <h3>Chat với Hot Wheels</h3>
+            <button class="close-chat" id="close-chat">×</button>
+        </div>
+        <div class="chatbox-body" id="chatbox-body">
+            <div class="chat-message bot">Xin chào! Tôi có thể giúp gì cho bạn hôm nay?</div>
+        </div>
+        <div class="chatbox-footer">
+            <input type="text" id="chat-input" placeholder="Nhập tin nhắn...">
+            <button id="send-chat">Gửi</button>
+        </div>
     </div>
-
-    <!-- Cột 2: Điều khoản và chính sách -->
-    <div>
-      <h2 class="text-xl font-bold mb-4">Điều khoản và chính sách</h2>
-      <ul class="space-y-2 text-sm">
-        <li><a href="#" class="hover:underline">Chính sách giao hàng</a></li>
-        <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
-        <li><a href="#" class="hover:underline">Chính sách bảo hành và đổi trả hàng hóa</a></li>
-        <li><a href="#" class="hover:underline">Chính sách thanh toán</a></li>
-        <li><a href="#" class="hover:underline">Điều kiện & Điều khoản thành viên</a></li>
-      </ul>
-    </div>
-
-    <!-- Cột 3: Hệ thống cửa hàng -->
-    <div>
-      <h2 class="text-xl font-bold mb-4">Hệ thống cửa hàng</h2>
-      <img src="https://mykingdom.com.vn/Media/Default/Store.jpg" alt="Cửa hàng MyKingdom" class="rounded-2xl shadow-lg">
-    </div>
-
-  </div>
-
-  <!-- Dòng bản quyền -->
-  <div class="text-center text-xs mt-10 px-4">
-    Công ty cổ phần Việt Tinh Anh - Số ĐKKD: 0309132354 do Sở Kế hoạch và Đầu tư cấp ngày 14/07/09
-  </div>
-</footer>
-
 
     <script>
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -401,7 +575,7 @@
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
-            alert(`Đã thêm ${name} vào giỏ hàng!`);
+            alert(`Đã thêm ${name} vào giỏ hàng!\n- Giá: ${price} VND\n- Số lượng: ${product ? product.quantity : 1}`);
         }
 
         // Xử lý sự kiện thêm vào giỏ hàng
@@ -415,13 +589,43 @@
         });
 
         // Tìm kiếm sản phẩm
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            document.querySelectorAll('.product').forEach(product => {
+        const searchInput = document.getElementById('search-input');
+        const categoryFilter = document.getElementById('category-filter');
+        const sortPrice = document.getElementById('sort-price');
+        const productsContainer = document.querySelector('.products-container');
+        const allProducts = Array.from(productsContainer.querySelectorAll('.product'));
+
+        function filterAndSortProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+            const sortOption = sortPrice.value;
+
+            // Lọc sản phẩm
+            let filteredProducts = allProducts.filter(product => {
                 const name = product.querySelector('h3').textContent.toLowerCase();
-                product.style.display = name.includes(searchTerm) ? 'inline-block' : 'none';
+                const category = product.dataset.category;
+                const matchesSearch = name.includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+                return matchesSearch && matchesCategory;
             });
-        });
+
+            // Sắp xếp sản phẩm
+            if (sortOption !== 'default') {
+                filteredProducts.sort((a, b) => {
+                    const priceA = parseInt(a.dataset.price);
+                    const priceB = parseInt(b.dataset.price);
+                    return sortOption === 'asc' ? priceA - priceB : priceB - priceA;
+                });
+            }
+
+            // Cập nhật hiển thị
+            productsContainer.innerHTML = '';
+            filteredProducts.forEach(product => productsContainer.appendChild(product));
+        }
+
+        searchInput.addEventListener('input', filterAndSortProducts);
+        categoryFilter.addEventListener('change', filterAndSortProducts);
+        sortPrice.addEventListener('change', filterAndSortProducts);
 
         // Slideshow cho hero section
         const images = [
@@ -439,9 +643,95 @@
 
         setInterval(changeHeroBackground, 4000);
 
+        // Nút quay lại đầu trang
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Chatbox logic
+        const chatbox = document.getElementById('chatbox');
+        const chatboxToggle = document.getElementById('chatbox-toggle');
+        const closeChat = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const sendChat = document.getElementById('send-chat');
+        const chatBody = document.getElementById('chatbox-body');
+
+        // Mở/đóng chatbox
+        chatboxToggle.addEventListener('click', () => {
+            chatbox.style.display = 'flex';
+            chatboxToggle.style.display = 'none';
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatbox.style.display = 'none';
+            chatboxToggle.style.display = 'block';
+        });
+
+        // Gửi tin nhắn
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Thêm tin nhắn người dùng
+            const userMessage = document.createElement('div');
+            userMessage.classList.add('chat-message', 'user');
+            userMessage.textContent = message;
+            chatBody.appendChild(userMessage);
+
+            // Xóa input
+            chatInput.value = '';
+
+            // Cuộn xuống cuối
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Phản hồi tự động
+            setTimeout(() => {
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('chat-message', 'bot');
+                botMessage.textContent = getBotResponse(message);
+                chatBody.appendChild(botMessage);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1000);
+        }
+
+        // Xử lý gửi tin nhắn
+        sendChat.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Phản hồi tự động của bot
+        function getBotResponse(message) {
+            message = message.toLowerCase();
+            if (message.includes('xin chào') || message.includes('chào')) {
+                return 'Xin chào! Rất vui được trò chuyện với bạn. Bạn cần giúp gì?';
+            } else if (message.includes('sản phẩm') || message.includes('xe')) {
+                return 'Chúng tôi có nhiều sản phẩm Hot Wheels như xe đua, bộ phụ kiện, và combo. Bạn có muốn xem chi tiết không?';
+            } else if (message.includes('giá')) {
+                return 'Giá sản phẩm dao động từ 250,000 VND đến 750,000 VND. Bạn muốn biết giá của sản phẩm nào cụ thể?';
+            } else if (message.includes('giao hàng')) {
+                return 'Chúng tôi giao hàng nhanh chóng trong vòng 24-48 giờ trên toàn quốc. Bạn có muốn đặt hàng ngay không?';
+            } else {
+                return 'Tôi chưa hiểu rõ câu hỏi của bạn. Bạn có thể nói rõ hơn không?';
+            }
+        }
+
         // Khởi tạo
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
+            filterAndSortProducts();
         });
 
         // Smooth scroll cho navigation
@@ -459,5 +749,5 @@
             });
         });
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935497401fab53d8',t:'MTc0NTQ4NzExOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
