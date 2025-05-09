@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Hot Wheels Store</title>
     <style>
         body {
@@ -67,7 +68,7 @@
             height: 600px;
             position: relative;
             text-align: center;
-            color: rgb(216, 121, 32);
+            color: rgb(230, 221, 213);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -326,12 +327,7 @@
             color: #333;
             margin-right: auto;
         }
-        .chatbox-footer {
-            padding: 10px;
-            border-top: 1px solid #ddd;
-            display: flex;
-            gap: 10px;
-        }
+       
         .chatbox-footer input {
             flex: 1;
             padding: 8px;
@@ -368,6 +364,117 @@
             background: #c15013;
             transform: scale(1.1);
         }
+        footer {
+    background-color: #f8f8f8;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 0 20px;
+}
+
+.footer-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #666;
+}
+
+.footer-section ul li a {
+    color: #666;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: #000;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    color: #666;
+    font-size: 20px;
+}
+.payment-methods {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.payment-methods img,
+
+.app-download img {
+    height: 30px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+.footer-bottom p {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}
+.icons a {
+    margin: 0 10px;
+    color: #333;
+}
+
+i {
+    font-size: 30px;
+    transition: color 0.3s;
+}
+
+i:hover {
+    color: #007bff;
+}
+i:hover {
+    color: #007bff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin: 20px 0;
+    }
+
+    .social-icons, .payment-methods, .app-download {
+        margin: 10px 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -479,6 +586,40 @@
             </div>
         </div>
     </section>
+    <section class="product-list" id="products">
+        <h2>Combo Siêu Xe</h2>
+        <div class="products-container">
+            <div class="product" data-category="xe-dua" data-price="250000">
+                <img src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Hot Wheels Camaro">
+                <h3>Hot Wheels Camaro</h3>
+                <p>Giá: <span class="price">250,000</span> VND</p>
+                <button class="btn add-to-cart" data-id="1" data-name="Hot Wheels Camaro" data-price="250000">Mua ngay</button>
+            </div>
+            <div class="product" data-category="xe-dua" data-price="280000">
+                <img src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Hot Wheels Mustang">
+                <h3>Hot Wheels Mustang</h3>
+                <p>Giá: <span class="price">280,000</span> VND</p>
+                <button class="btn add-to-cart" data-id="2" data-name="Hot Wheels Mustang" data-price="280000">Mua ngay</button>
+            </div>
+            <div class="product" data-category="xe-dua" data-price="320000">
+                <img src="https://m.media-amazon.com/images/I/71G0KhcilRL._AC_SL1000_.jpg" alt="Hot Wheels Ferrari">
+                <h3>Hot Wheels Ferrari</h3>
+                <p>Giá: <span class="price">320,000</span> VND</p>
+                <button class="btn add-to-cart" data-id="3" data-name="Hot Wheels Ferrari" data-price="320000">Mua ngay</button>
+            </div>
+            <div class="product" data-category="xe-dua" data-price="250000">
+                <img src="https://i.pinimg.com/originals/78/2c/5e/782c5e8d55bf6435058047216873ac19.jpg" alt="Hot Wheels Camaro">
+                <h3>Hot Wheels Camaro</h3>
+                <p>Giá: <span class="price">250,000</span> VND</p>
+                <button class="btn add-to-cart" data-id="1" data-name="Hot Wheels Camaro" data-price="250000">Mua ngay</button>
+            </div>
+            <div class="product" data-category="xe-dua" data-price="280000">
+                <img src="https://th.bing.com/th/id/R.5bbe360db7ee6da8b5e5ccd3dce01039?rik=0MRaR8zX4D7erg&riu=http%3a%2f%2fkmjdiecastii.com%2fcdn%2fshop%2fproducts%2f21c192purpleUSA.jpg%3fv%3d1654520555&ehk=c8UmACVaSCkUrKs%2bx7OZNTzgKrDrew3x5ENV5iAy27o%3d&risl=&pid=ImgRaw&r=0" alt="Hot Wheels Mustang">
+                <h3>Hot Wheels Mustang</h3>
+                <p>Giá: <span class="price">280,000</span> VND</p>
+                <button class="btn add-to-cart" data-id="2" data-name="Hot Wheels Mustang" data-price="280000">Mua ngay</button>
+            </div>
+        </div>
 
     <!-- Combo Sản Phẩm Đặc Biệt -->
     <section class="combo-section">
@@ -532,11 +673,61 @@
             </div>
         </div>
     </section>
-
     <footer>
-        <p>© 2025 Hot Wheels Store. All Rights Reserved.</p>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>ĐICH VỤ</h3>
+                <ul>
+                    <ul>
+                        <li><a href="terms.html">Điều khoản sử dụng</a></li>
+                        <li><a href="payment-policy.html">Chính sách thanh toán</a></li>
+                        <li><a href="privacy-policy.html">Chính sách bảo mật thông tin cá nhân</a></li>
+                    </ul>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>HỖ TRỢ</h3>
+                <ul>
+                    <ul>
+                        <li><a href="return-policy.html">Chính sách đổi - trả hàng hóa</a></li>
+                        <li><a href="warranty-policy.html">Chính sách bảo hành - bảo trì</a></li>
+                        <li><a href="shipping-policy.html">Chính sách vận chuyển</a></li>
+                    </ul>
+                
+          
+                 
+                </ul>
+            </div>
+          
+            <div class="footer-section">
+                <h3>LIÊN HỆ</h3>
+                <ul>
+                    <li></li>
+                    <li><a href="haiphuwng23@gmail.com">haiphuwng23@gmail.com</a></li>
+                    <li><a href="tel:0916297780">0916297780</a></li>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+           
+            <div class="payment-methods">
+                <img src="lex-logo.png" alt="Lex">
+                <img src="ninjavan-logo.png" alt="Ninjavan">
+                <img src="shopeepay-logo.png" alt="ShopeePay">
+                <img src="zalopay-logo.png" alt="ZaloPay">
+                <img src="vn-pay-logo.png" alt="VNPay">
+                <img src="momo-logo.png" alt="MoMo">
+            </div>
+            <p>© 2025 Hot Wheels Store. All rights reserved.</p>
+           
+        </div>
     </footer>
-
     <!-- Back to Top Button -->
     <div class="back-to-top" id="back-to-top">↑</div>
 
