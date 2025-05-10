@@ -9,150 +9,417 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fffafa;
+            background-color: #f4f4f4; /* Nền tổng thể hơi xám nhẹ */
+            color: #333; /* Màu chữ mặc định */
         }
+
+        /* --- Kiểu dáng Header --- */
         header {
-            background: #f78902;
+            background: #f7890b; /* Màu cam đặc trưng của Hot Wheels */
             color: white;
-            padding: 1px 15px;
+            padding: 10px 15px; /* Tăng padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            flex-wrap: wrap; /* Cho phép các mục xuống dòng trên màn hình nhỏ */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Thêm bóng cho header */
         }
-        .logo img {
-            width: 200px;
-            height: 100px;
+        .logo img { /* Nhắm mục tiêu hình ảnh bên trong div logo */
+            max-width: 180px; /* Giảm nhẹ kích thước logo */
+            height: auto; /* Duy trì tỷ lệ khung hình */
+            display: block; /* Loại bỏ khoảng trống thừa bên dưới hình ảnh */
         }
         nav ul {
             list-style: none;
             display: flex;
-            gap: 1px;
+            gap: 20px; /* Tăng khoảng cách giữa các mục nav */
             padding: 0;
             margin: 0;
+            align-items: center;
+            flex-wrap: wrap; /* Cho phép các mục nav xuống dòng */
+            justify-content: center; /* Căn giữa các mục nav nếu chúng xuống dòng */
         }
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
             font-weight: bold;
-            padding: 15px 25px;
-            background-color: #f56d0531;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            padding: 10px 15px;
             display: inline-block;
-            position: relative;
+            position: relative; /* Cần cho pseudo-element */
+            font-size: 1em; /* Cỡ chữ hơi lớn hơn */
+            overflow: hidden; /* Đảm bảo pseudo-element không gây tràn */
+            transition: color 0.3s ease; /* Hiệu ứng chuyển màu chữ */
         }
+
+        /* --- Hiệu ứng gạch chân động --- */
         nav ul li a::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 2px;
-            background: white;
-            position: absolute;
-            left: 50%;
-            bottom: -5px;
-            transition: width 0.3s ease, left 0.3s ease;
+            content: ''; /* Bắt buộc cho pseudo-element */
+            position: absolute; /* Định vị tuyệt đối so với thẻ a */
+            bottom: 5px; /* Khoảng cách từ dưới lên (điều chỉnh nếu cần) */
+            left: 50%; /* Bắt đầu từ giữa */
+            transform: translateX(-50%); /* Kéo lùi lại bằng nửa chiều rộng để căn giữa */
+            width: 0; /* Chiều rộng ban đầu là 0 */
+            height: 2px; /* Độ dày của gạch chân */
+            background-color: white; /* Màu gạch chân */
+            transition: width 0.3s ease-in-out; /* Hiệu ứng chuyển động cho width */
         }
+
         nav ul li a:hover::after,
-        nav ul li a:focus::after,
-        nav ul li a.active::after {
-            width: 100%;
-            left: 0;
+        nav ul li a:focus::after, /* Thêm trạng thái focus cho khả năng truy cập */
+        nav ul li a.active::after { /* Class cho liên kết trang hiện tại */
+            width: 80%; /* Chiều rộng khi hover hoặc active (có thể là 100% hoặc ít hơn) */
         }
-       
-        .about-section {
-            text-align: center;
-            padding: 20px;
-            background: white;
+        /* Kết thúc Kiểu dáng Header */
+
+
+        /* --- Bố cục Nội dung Chính --- */
+        main {
+            padding: 0; /* Loại bỏ padding tổng thể của main */
         }
+
+        /* Container để giới hạn chiều rộng và căn giữa nội dung */
+        .container {
+            max-width: 1200px; /* Chiều rộng tối đa của khu vực nội dung */
+            margin: 0 auto; /* Căn giữa container theo chiều ngang */
+            padding: 0 15px; /* Thêm padding ngang bên trong container */
+        }
+
+        /* Kiểu dáng chung cho các Section */
+        section {
+            padding: 40px 0; /* Padding trên và dưới cho mỗi section */
+            margin-bottom: 0; /* Loại bỏ margin-bottom cũ */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Bóng mờ nhẹ giữa các section */
+        }
+
+        section h2 {
+             text-align: center; /* Căn giữa tiêu đề */
+             color: #f7890b; /* Màu cam cho tiêu đề */
+             margin-bottom: 30px; /* Khoảng cách lớn hơn bên dưới tiêu đề */
+             font-size: 2em; /* Cỡ chữ tiêu đề lớn hơn */
+        }
+
+        /* Kiểu dáng cho Phần Giới thiệu Chung */
+        .about-intro {
+            background: rgb(255, 255, 255); /* Nền trắng cho phần này */
+        }
+
+        .about-intro p {
+            max-width: 800px; /* Giới hạn chiều rộng đoạn văn giới thiệu để dễ đọc */
+            margin: 15px auto 30px auto; /* Căn giữa đoạn văn và thêm margin bên dưới */
+            line-height: 1.7; /* Cải thiện khoảng cách dòng để dễ đọc */
+            color: #555; /* Màu chữ hơi nhạt hơn */
+            text-align: center; /* Căn giữa văn bản */
+        }
+
+        /* Kiểu dáng cho Container Video (Responsive) */
+        .about-video {
+            margin: 30px auto; /* Căn giữa div video và thêm margin */
+            max-width: 800px; /* Giới hạn chiều rộng container video */
+            position: relative; /* Cần cho padding tỷ lệ khung hình */
+            height: auto; /* Cho phép chiều cao tự động điều chỉnh */
+            overflow: hidden; /* Ngăn nội dung tràn ra ngoài */
+            background-color: #000; /* Nền trong khi video tải hoặc nếu bị lỗi */
+            border-radius: 8px; /* Bo góc container video */
+        }
+
+        .about-video video { /* Áp dụng kiểu cho thẻ video */
+            display: block; /* Loại bỏ khoảng trống thừa bên dưới video */
+            width: 100%; /* Làm cho video lấp đầy chiều rộng container */
+            height: auto; /* Duy trì tỷ lệ khung hình */
+            border-radius: 8px; /* Bo góc video */
+        }
+
+
+        /* Kiểu dáng cho Phần Nổi bật */
+        .about-highlights {
+            background: white; /* Nền trắng */
+        }
+
+         .about-highlights h2 { /* Kiểu dáng cho H2 trong phần nổi bật */
+             color: #333; /* Màu tiêu đề đậm hơn */
+         }
+
+        /* Kiểu dáng cho Container Lưới */
         .about-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            display: flex; /* Kích hoạt Flexbox */
+            justify-content: center; /* Căn giữa các mục lưới theo chiều ngang */
+            gap: 30px; /* Tăng khoảng cách giữa các mục lưới */
+            flex-wrap: wrap; /* Cho phép các mục xuống dòng */
+            padding: 0 15px; /* Thêm padding ngang cho lưới */
         }
+
+        /* Kiểu dáng cho các Mục Lưới Cá nhân */
         .about-item {
-            background: #f79c0b;
-            padding: 20px;
+            background: #f79c0b; /* Nền màu cam */
+            color: white; /* Chữ trắng trên nền cam */
+            padding: 25px; /* Tăng padding */
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            width: 300px;
+            width: 320px; /* Tăng nhẹ chiều rộng cố định */
             text-align: center;
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
+            display: flex; /* Sử dụng flexbox để căn chỉnh nội dung bên trong mục */
+            flex-direction: column; /* Xếp chồng nội dung theo chiều dọc */
+            align-items: center; /* Căn giữa nội dung theo chiều ngang bên trong mục */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng hover */
         }
-        .about-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-        }
+
+         .about-item:hover {
+             transform: translateY(-5px); /* Nâng nhẹ khi hover */
+             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Bóng lớn hơn khi hover */
+         }
+
+
         .about-item img {
-            width: 100%;
-            border-radius: 10px;
+            width: 100%; /* Làm cho hình ảnh lấp đầy chiều rộng mục */
+            max-width: 2800px; /* Tăng giới hạn kích thước hình ảnh */
+            border-radius: 8px; /* Border-radius hơi nhỏ hơn */
+            margin-bottom: 15px; /* Khoảng cách bên dưới hình ảnh */
+            height: 400px; /* Đảm bảo tỷ lệ khung hình được duy trì */
+            object-fit: cover; /* Cắt hình ảnh nếu cần để vừa */
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        .about-item h3 {
+            margin-top: 0; /* Loại bỏ margin trên mặc định */
+            margin-bottom: 10px; /* Khoảng cách bên dưới h3 */
+            color: white; /* Đảm bảo h3 màu trắng */
+            font-size: 1.3em; /* Cỡ chữ h3 lớn hơn */
         }
-        footer {
-            background: #333;
-            color: white;
+
+        .about-item p {
+            margin: 0; /* Loại bỏ margin đoạn văn mặc định */
+            line-height: 1.6; /* Cải thiện khả năng đọc */
+            color: #ffffff; /* Đảm bảo đoạn văn màu trắng */
+        }
+
+        /* Kiểu dáng cho Phần Tại sao sưu tầm */
+        .why-collect-section {
+            background-color:             #f7890b; /* Màu cam đặc trưng của Hot Wheels */
+            ; /* Nền màu cam */
+            color: white; /* Chữ trắng */
+        }
+
+        .why-collect-section h2 {
+            color: rgb(255, 253, 253); /* Tiêu đề màu trắng */
+        }
+
+        .why-collect-section .container p {
+            max-width: 900px;
+            margin: 20px auto;
             text-align: center;
-            padding: 20px;
+            line-height: 1.7;
+        }
+
+        .collect-points {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
             margin-top: 30px;
         }
+
+        .collect-point-item {
+            background-color: rgba(255, 255, 255, 0.2); /* Nền trắng mờ */
+            padding: 20px;
+            border-radius: 8px;
+            width: 280px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* Sử dụng flexbox cho nội dung bên trong item */
+            flex-direction: column; /* Xếp chồng ảnh và text */
+            align-items: center; /* Căn giữa nội dung */
+        }
+
+        .collect-point-item img { /* Kiểu dáng cho ảnh trong mục sưu tầm */
+            max-width: 300px; /* Giới hạn kích thước ảnh */
+            height: 200px;
+            margin-bottom: 15px; /* Khoảng cách dưới ảnh */
+            border-radius: 5px; /* Bo góc ảnh */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bóng nhẹ cho ảnh */
+        }
+
+
+        .collect-point-item h4 {
+            margin-top: 0;
+            color: rgb(252, 252, 252);
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-align: center; /* Căn giữa tiêu đề h4 */
+        }
+
+        .collect-point-item p {
+            color: #ffffff; /* Chữ trắng xám */
+            line-height: 1.6;
+            text-align: center; /* Căn giữa đoạn văn */
+        }
+
+
+        /* --- Kiểu dáng Footer --- */
+        footer {
+            background: #333;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 20px;
+            margin-top: 0; /* Loại bỏ margin-top cũ */
+        }
+        /* Kết thúc Kiểu dáng Footer */
+
+
+        /* --- Điều chỉnh Responsive --- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Xếp chồng logo và nav theo chiều dọc */
+                padding: 10px;
+            }
+            nav ul {
+                margin-top: 10px;
+                gap: 10px; /* Giảm khoảng cách mục nav */
+            }
+            nav ul li a {
+                padding: 8px 12px; /* Giảm padding nav */
+            }
+
+            section {
+                padding: 30px 0; /* Giảm padding section trên màn hình nhỏ */
+            }
+
+            section h2 {
+                font-size: 1.8em; /* Giảm cỡ chữ tiêu đề */
+            }
+
+            .about-intro p {
+                padding: 0 10px; /* Thêm padding ngang cho văn bản giới thiệu trên màn hình nhỏ */
+            }
+
+            .about-grid {
+                gap: 20px; /* Giảm khoảng cách lưới */
+            }
+
+            .about-item {
+                width: 90%; /* Cho phép các mục chiếm nhiều chiều rộng hơn trên màn hình nhỏ */
+                max-width: 350px; /* Ngăn các mục trở nên quá rộng */
+            }
+
+            .collect-points {
+                gap: 15px; /* Giảm khoảng cách điểm sưu tầm */
+            }
+
+            .collect-point-item {
+                width: 90%; /* Cho phép các mục chiếm nhiều chiều rộng hơn */
+                max-width: 300px; /* Giới hạn chiều rộng */
+            }
+
+
+            /* Padding tỷ lệ khung hình video sẽ hoạt động tốt */
+        }
+
+         @media (max-width: 480px) {
+             nav ul {
+                 flex-direction: column; /* Xếp chồng các liên kết nav theo chiều dọc trên màn hình rất nhỏ */
+                 gap: 5px;
+             }
+             section {
+                 padding: 20px 0; /* Giảm padding section thêm nữa */
+             }
+             section h2 {
+                 font-size: 1.5em; /* Giảm cỡ chữ tiêu đề thêm nữa */
+             }
+         }
+
     </style>
 </head>
 <body>
     <header>
-        <div class="logo"><img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain"></div>
+        <div class="logo">
+            
+            <img src="https://th.bing.com/th/id/OIP.0CxUTbfrZAqoYzp3sGVrMgHaEK?rs=1&pid=ImgDetMain" alt="Logo Hot Wheels Store">
+        </div>
         <nav>
             <ul>
                 <li><a href="index.html">Trang chủ</a></li>
                 <li><a href="products.html">Sản phẩm</a></li>
-                <li><a href="about.html" class="active">Giới thiệu</a></li>
-                <li><a href="contact.html">Liên hệ</a></li>
-                <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+                <li><a href="about.html" class="active">Giới thiệu</a></li> <li><a href="cart.html">🛒 Giỏ hàng (<span id="cart-count">0</span>)</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="about-section">
-        <h2>Về Chúng Tôi</h2>
-        <div class="about-grid">
-            <div class="about-item">
-                <img src="https://th.bing.com/th/id/R.8710ffb9efbafa03598a13da29a0c566?rik=vXMaRq1qUH5trw&riu=http%3a%2f%2fedensbouquet.com%2fwp-content%2fuploads%2f2012%2f08%2fjace-with-cars.jpg&ehk=SnrdfgBbYL9ae5xZ9T5D2eyfzaSNdBVhSDCw%2fCT8d9c%3d&risl=&pid=ImgRaw&r=0" alt="Câu chuyện của chúng tôi">
-                <h3>Câu chuyện của chúng tôi</h3>
-                <p>Hot Wheels Store ra đời với niềm đam mê mãnh liệt dành cho xe mô hình. Chúng tôi cung cấp những sản phẩm chất lượng cao dành cho người sưu tầm và đam mê xe.</p>
+    <main>
+        <section class="about-intro">
+            <div class="container">
+                <h2>Về Chúng Tôi</h2>
+                <p>Hot Wheels Store ra đời với niềm đam mê mãnh liệt dành cho xe mô hình. Chúng tôi cung cấp những sản phẩm chất lượng cao dành cho người sưu tầm và đam mê xe, mang đến trải nghiệm mua sắm tuyệt vời và bộ sưu tập đa dạng nhất.</p>
+
+                <div class="about-video">
+                    <video controls>
+                        <source src="0503.mp4" type="video/mp4">
+                        Trình duyệt của bạn không hỗ trợ thẻ video.
+                    </video>
+                </div>
+                 </div>
+        </section>
+        <section class="about-highlights">
+             <div class="container">
+                <h2>Tại sao chọn Hot Wheels Store?</h2> <div class="about-grid">
+                    <div class="about-item">
+                        
+                        <img src="https://www.carscoops.com/wp-content/uploads/2018/05/Hot-Wheels-12.jpg" alt="Chất lượng sản phẩm Hot Wheels">
+                        <h3>Chất lượng hàng đầu</h3>
+                        <p>Chúng tôi cam kết mang đến những mẫu xe mô hình có chất lượng tốt nhất, được tuyển chọn kỹ lưỡng, đảm bảo sự hài lòng của khách hàng khó tính nhất.</p> </div>
+                    <div class="about-item">
+                        
+                        <img src="https://th.bing.com/th/id/OIP.4-O9gQV9H7NHNGIrbQKmOwHaI1?pid=ImgDet&w=474&h=565&rs=1" alt="Dịch vụ khách hàng Hot Wheels">
+                        <h3>Dịch vụ tận tâm</h3>
+                        <p>Đội ngũ chăm sóc khách hàng của chúng tôi luôn sẵn sàng hỗ trợ, tư vấn và mang đến trải nghiệm mua sắm nhanh chóng, tiện lợi và đáng tin cậy.</p> </div>
+                    </div>
+             </div>
+        </section>
+        <section class="why-collect-section">
+            <div class="container">
+                <h2>Tại sao nên sưu tầm Hot Wheels?</h2> <p>Sưu tầm Hot Wheels không chỉ là một sở thích mà còn mang lại nhiều niềm vui và lợi ích. Đó là một cách tuyệt vời để kết nối với ký ức tuổi thơ, khám phá thế giới xe hơi, và thậm chí là một hình thức đầu tư độc đáo.</p>
+                <div class="collect-points">
+                    <div class="collect-point-item">
+                        
+                        <img src="https://th.bing.com/th/id/OIP.DXmzeGSpBApRWr0InbB8MAHaE8?cb=iwp2&w=768&h=512&rs=1&pid=ImgDetMain" alt="Ảnh minh họa Đam mê và Ký ức">
+                        <h4>Đam mê và Ký ức</h4>
+                        <p>Hot Wheels gắn liền với tuổi thơ của nhiều thế hệ. Sưu tầm giúp bạn sống lại những kỷ niệm đẹp và chia sẻ đam mê này với bạn bè, gia đình.</p>
+                    </div>
+                    <div class="collect-point-item">
+                        
+                        <img src="https://i.pinimg.com/736x/80/46/af/8046afb946f676b76fbdf69962d617de.jpg" alt="Ảnh minh họa Sự Đa dạng và Sáng tạo">
+                        <h4>Sự Đa dạng và Sáng tạo</h4>
+                        <p>Với hàng ngàn mẫu xe khác nhau, từ xe cổ điển đến xe tương lai, Hot Wheels mang đến một thế giới đa dạng và không ngừng sáng tạo.</p>
+                    </div>
+                     <div class="collect-point-item">
+                        
+                        <img src="https://i.ytimg.com/vi/lAMlwRnvPQE/maxresdefault.jpg" alt="Ảnh minh họa Giá trị Sưu tầm">
+                        <h4>Giá trị Sưu tầm</h4>
+                        <p>Một số mẫu Hot Wheels hiếm có thể tăng giá trị đáng kể theo thời gian, trở thành một khoản đầu tư thú vị cho người sưu tầm.</p>
+                    </div>
+                     <div class="collect-point-item">
+                       
+                        <img src="https://thumbs.dreamstime.com/b/racing-car-toy-race-track-emotional-glad-cheerful-players-228397912.jpg" alt="Ảnh minh họa Kết nối Cộng đồng">
+                        <h4>Kết nối Cộng đồng</h4>
+                        <p>Tham gia vào cộng đồng sưu tầm Hot Wheels giúp bạn gặp gỡ những người cùng sở thích, trao đổi, học hỏi và chia sẻ niềm vui.</p>
+                    </div>
+                </div>
             </div>
-            <div class="about-item">
-                <img src="https://i.ytimg.com/vi/djHbEzV9VX0/maxresdefault.jpg" alt="Chất lượng">
-                <h3>Chất lượng hàng đầu</h3>
-                <p>Chúng tôi cam kết mang đến những mẫu xe mô hình có chất lượng tốt nhất, đảm bảo sự hài lòng của khách hàng.</p>
-            </div>
-            <div class="about-item">
-                <img src="https://th.bing.com/th/id/OIP.4-O9gQV9H7NHNGIrbQKmOwHaI1?pid=ImgDet&w=474&h=565&rs=1" alt="Dịch vụ">
-                <h3>Dịch vụ tận tâm</h3>
-                <p>Đội ngũ chăm sóc khách hàng của chúng tôi luôn sẵn sàng hỗ trợ và mang đến trải nghiệm mua sắm tốt nhất.</p>
-            </div>
-        </div>
-    </section>
+        </section>
+        </main>
 
     <footer>
-        <p>&copy; 2025 Hot Wheels Store. All Rights Reserved.</p>
+        <p>© 2025 Hot Wheels Store. All Rights Reserved.</p>
     </footer>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').innerText = count;
-        }
-
-        document.addEventListener('DOMContentLoaded', updateCartCount);
+        // Đây là một placeholder. Bạn cần JavaScript thực tế
+        // để lấy số lượng giỏ hàng thực tế từ local storage hoặc backend.
+        // Hiện tại, chúng ta chỉ hiển thị '0' hoặc lấy từ localStorage nếu bạn đã thiết lập.
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartCountSpan = document.getElementById('cart-count');
+            // Ví dụ: Lấy số lượng từ localStorage (nếu bạn đã triển khai)
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cartCountSpan.textContent = cart.length;
+        });
     </script>
+
 </body>
 </html>
